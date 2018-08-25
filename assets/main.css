@@ -1,0 +1,36 @@
+/* Layout */
+
+#content{
+	margin: 2em;
+}
+
+.column{
+	float: left;
+	padding:0 1em 5px 1em;
+	width: 50%;
+}
+
+.left30{
+	float:left;
+	width:30%;
+}
+.right70{
+	width:70%;
+}
+
+.row:after{
+	content:"";
+	display: table;
+	clear:both;
+}
+
+.input-group{
+	padding:2px;
+}
+/* Headings */
+h2,h3{
+	text-align: center;
+}
+.col.u{
+	text-decoration: underline; 
+}

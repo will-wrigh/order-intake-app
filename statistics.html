@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Statistics</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+     <meta name="viewport" content="width=device-width, initial-scale=0.8, shrink-to-fit=no">
+    <link rel="stylesheet" href="assets/moreInfo.css" />
+    <script src="statistics.js"></script>
+  </head>
+
+  <body>
+    <div id="content">
+
+  	</br>
+  	<h2>Statistics</h2>
+  	</br>
+
+	<div class="form-group row">
+		<div class="col">
+	  <label for="example-date-input" class="col-form-label">Start Date</label>
+	</div>
+	  <div class="col">
+	    <input class="form-control" type="date" value="2018-01-01" id="start-date">
+	  </div>
+		<div class="col">
+	  <label for="example-date-input" class="col-form-label">End Date</label>
+	</div>
+	  <div class="col">
+	    <input class="form-control" type="date" value="2018-08-19" id="end-date">
+	  </div>
+	</div>
+	</br>
+
+  	<div class="col">
+        <div class="row">
+            <div class="col u">
+                <p>Column</p>
+            </div>
+            <div class="col">       
+                <p>Sum</p>
+            </div>
+            <div class="col">       
+                <p>Average</p>
+            </div>
+            <div class="col">       
+                <p>Max</p>
+            </div>
+            <div class="col">       
+                <p>Min</p>
+            </div>
+        </div>
+    </div>
+
+  	<div class="col">
+        <div class="row">
+            <div class="col u">
+                <p>Material</p>
+            </div>
+            <div class="col">       
+                <p id="sumMaterial"></p>
+            </div>
+            <div class="col">       
+                <p id="avgMaterial"></p>
+            </div>
+            <div class="col">       
+                <p id="maxMaterial"></p>
+            </div>
+            <div class="col">       
+                <p id="minMaterial"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="row">
+            <div class="col u">
+                <p>Time</p>
+            </div>
+            <div class="col">       
+                <p id="sumTime"></p>
+            </div>
+            <div class="col">       
+                <p id="avgTime"></p>
+            </div>
+            <div class="col">       
+                <p id="maxTime"></p>
+            </div>
+            <div class="col">       
+                <p id="minTime"></p>
+            </div>
+        </div>
+    </div>
+
+</br>
+
+    <div class="col">
+        <div class="row">
+            <div class="col u">
+                <p>Association</p>
+            </div>
+            <div class="col">       
+                <p id="associationMode"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="row">
+            <div class="col u">
+                <p>Color</p>
+            </div>
+            <div class="col">       
+                <p id="colorMode"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="row">
+            <div class="col u">
+                <p>Purpose</p>
+            </div>
+            <div class="col">       
+                <p id="purposeMode"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="row">
+            <div class="col u">
+                <p>Printer</p>
+            </div>
+            <div class="col">       
+                <p id="printerMode"></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+  </body>
+
+  </html>

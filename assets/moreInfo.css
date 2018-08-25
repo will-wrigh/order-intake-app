@@ -1,0 +1,13 @@
+h2,h3{
+	text-align: center;
+}
+.col.u{
+	text-decoration: underline; 
+	line-height: 1!important;
+}
+body{
+	line-height: 1;
+}
+#content{
+	margin: 2em;
+}

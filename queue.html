@@ -1,0 +1,83 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>TechLab Intake App</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="assets/table.css"/>
+    <link rel="stylesheet" href="assets/main.css"/>
+    <script src="handsontable.full.js"></script>
+    <link rel="stylesheet" type="text/css" href="handsontable.full.min.css">
+
+    <script src="table.js"></script>
+ <script type="text/javascript" src="data.json"></script>
+ <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js" language="javascript"></script>
+    <script language="javascript">
+        $(document).ready(function () {
+            $(".ht_master td:nth-child(5)").each(function () {
+                if (($(this).text(), 5) == 'yes') {
+                    $(this).parent("tr").css("background-color", "red");
+                }
+            });
+        });
+    </script>
+</head>
+
+<body onkeydown="console.log(event)" onkeyup="console.log(event)">
+    <div id="content">
+    <div style="float: left">
+      <button id="exportFileButton" type="button" class="btn btn-primary">Export Table</button>
+      <button id="saveBtn" type="button" class="btn btn-primary">Save Table</button>
+      <button id="stats-window" type="button" class="btn btn-primary">Statistics</button>
+
+<!--       <button id="printerType" type="button" class="btn btn-primary">Printer</button>
+ -->    </div>
+<!--     <div style="float:right">
+      <select class="form-control" id="prefPrinter">
+      </select>
+    </div> -->
+    <div style="margin: 0 auto; width: 200px;">
+      <h2>Print Queue</h2></div>
+
+    <div id="hot"></div>  
+      <!-- <select class="form-control" id="posEmail"> -->
+      <!-- </select> -->
+      <!-- <button id="send-email" type="button" class="btn btn-primary">Send Email</button> -->
+
+<!--     <div class="colTwo">
+      <div class="input-group">
+       <input id="nameQ" type="text" class="form-control" placeholder="Full Name" aria-label="FullName" aria-describedby="basic-addon1"><br>
+      </div>
+
+      <div class="input-group">
+       <input id="fileQ" type="text" class="form-control" placeholder="File" aria-label="PrintFile" aria-describedby="basic-addon1"><br>
+      </div>
+    </div>
+
+    <button id="queuebtn" type="button" class="btn btn-primary">Add</button> -->
+
+
+    <!-- <p id="openFile" onclick="openFileShell()">openpls</p> -->
+    <br>
+    <!-- <h4>Currently Printing</h4>
+
+      <div class="col">
+
+        <div class="row">
+          <div class="col">
+          <p>Monoprice</p>
+          </div>
+          <div class="col-8">
+            <input id="fullName" type="text" class="form-control" placeholder="Print Name" aria-label="fullName" aria-describedby="basic-addon1">
+          </div>
+        </div>
+
+      </div>
+    </div> -->
+
+</body>
+
+</html>

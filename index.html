@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Intake</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+     <meta name="viewport" content="width=device-width, initial-scale=0.8, shrink-to-fit=no">
+    <link rel="stylesheet" href="assets/main.css" />
+  </head>
+  <body>
+
+    <div id="content">
+
+    <h3>3D Print Intake App</h3>
+    
+    <p class="info">Fill out the information and hit add to queue!</p>
+
+        <div class="input-group">
+         <input id="projName" type="text" class="form-control" placeholder="Project Name" aria-label="projName" aria-describedby="basic-addon1"><br>
+        </div>
+
+    <br>
+
+    <div class="row">
+
+      <div class="col">
+
+        <div class="row">
+          <div class="col">
+          <p>Full Name</p>
+          </div>
+          <div class="col-8">
+            <input id="fullName" type="text" class="form-control" placeholder="Full Name" aria-label="fullName" aria-describedby="basic-addon1">
+          </div>
+        </div>
+
+      </div>
+        
+    <div class="col">
+
+        <div class="row">
+         <div class="col">
+          <p>Phone Number</p>
+        </div>
+          <div class="col-8">
+            <input id="phoneNum" type="text" class="form-control" placeholder="Phone Number" aria-label="phoneNum" aria-describedby="basic-addon1">
+          </div>
+        </div> 
+
+    </div>
+
+  </div>
+
+  <div class="row">
+
+      <div class="col">
+
+        <div class="row">
+          <div class="col">
+          <p>Net ID</p>
+          </div>
+          <div class="col-8">
+            <input id="netID" type="text" class="form-control" placeholder="Net ID" aria-label="fullName" aria-describedby="basic-addon1">
+          </div>
+        </div>
+
+      </div>
+        
+    <div class="col">
+
+        <div class="row">
+         <div class="col">
+          <p>School/Assoc.</p>
+        </div>
+          <div class="col-8">
+            <select class="form-control" id="prefSchool">
+            <option>Emory College</option>
+            <option>Graduate School</option>
+            </select>
+          </div>
+        </div> 
+
+    </div>
+
+  </div>
+
+  <br><p>Indicate your preferences for the following options (not guaranteed).</p>
+
+   <div class="row">
+
+      <div class="col">
+
+        <div class="row">
+          <div class="col">
+          <p>Color</p>
+          </div>
+          <div class="col-8">
+            <select class="form-control" id="prefColor">
+            <option>White</option>
+            <option>Green</option>
+            <option>Orange</option>
+          </select>
+          </div>
+        </div>
+
+      </div>
+        
+    <div class="col">
+
+        <div class="row">
+         <div class="col">
+          <p>Printer</p>
+        </div>
+          <div class="col-8">
+            <select class="form-control" id="prefPrinter">
+            <option>Taz</option>
+            <option>Monoprice</option>
+            <option>FormLabs</option>
+          </select>
+          </div>
+        </div> 
+
+    </div>
+
+  </div>
+
+     <div class="row">
+
+      <div class="col">
+
+        <div class="row">
+          <div class="col">
+          <p>Infill</p>
+          </div>
+          <div class="col-8">
+            <select class="form-control" id="prefInfill">
+            <option>5%</option>
+            <option>10%</option>
+            <option>20%</option>
+          </select>
+          </div>
+        </div>
+
+      </div>
+        
+    <div class="col">
+
+        <div class="row">
+         <div class="col">
+          <p>Resolution</p>
+        </div>
+          <div class="col-8">
+          <select class="form-control" id="prefResolution">
+            <option>0.3</option>
+            <option>0.2</option>
+            <option>0.1</option><br>
+          </select>
+          </div>
+        </div> 
+
+    </div>
+
+<br><br><br>
+
+  </div>
+
+     <div class="row">
+
+      <div class="col">
+
+        <div class="row">
+          <div class="col-4">
+          <p>Material Usage</p>
+          </div>
+          <div class="col-6">
+            <input id="material" type="text" class="form-control" placeholder="0" aria-label="material" aria-describedby="basic-addon1">
+          </div>
+
+            <div class="col-2">
+              <p id="units">g</p>
+<!--                 <div class="radio">
+                  <label><input id=mL" type="radio" name="optradio">mL</label>
+                  <label><input id="g" type="radio" name="optradio">g</label>
+                </div> -->
+            </div>
+        </div>
+
+      </div>
+        
+    <div class="col">
+
+        <div class="row">
+         <div class="col-4">
+          <p>Est. Time</p>
+        </div>
+          <div class="col-2">
+              <input id="timeH" type="text" class="form-control" placeholder="0" aria-label="time" aria-describedby="basic-addon1">
+          </div>
+          <div class="col-2">
+            <p>hrs</p>
+          </div>
+          <div class="col-2">
+            <input id="timeM" type="text" class="form-control" placeholder="0" aria-label="time" aria-describedby="basic-addon1">
+          </div>
+          <div class="col-2">
+            <p>mins</p>
+          </div>
+        </div> 
+
+    </div>
+
+  </div>
+</br>
+
+      <div class="row">
+
+          <div class="col">
+             <div class="row">
+              <div class="col">
+                 <p>File to Print</p>
+               </div>
+              <div class="col-8">       
+                <input type="file" class="form-control-file" id="file">
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="row">
+              <div class="col">
+                <p>Purpose</p>
+              </div>
+              <div class="col-8">       
+                <select class="form-control" id="prefPurpose">
+                  <option>Personal</option>
+                  <option>Research</option>
+                  <option>Class</option><br>
+                </select>
+              </div>
+            </div>
+        </div>
+
+      </div>
+
+    <button id="add-proj" type="button" class="btn btn-primary">Add Project</button>
+    <button id="queue-window" type="button" class="btn btn-primary">Queue</button>
+    <button id="options-window" type="button" class="btn btn-primary">Options</button>
+    <div id="example"></div>
+    <p id="demo"></p>
+    
+    </div>
+
+    <script>
+      require('./renderer.js')
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  </body>
+</html>

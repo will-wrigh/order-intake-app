@@ -1,0 +1,17 @@
+/*.ht_master tr > td.current { colors selected cell
+  background-color: #4286f4;
+}*/
+
+h2,h3{
+	text-align: center;
+}
+
+
+/*.ht_master tr:nth-child(2) > td:nth-child(3) {
+  background-color: #F00;
+}
+*/
+
+.ht_master td.area {
+  background-color: #F00;
+}

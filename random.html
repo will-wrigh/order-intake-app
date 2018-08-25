@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <title>Intake Form</title>
+   
+<!--     <link rel="stylesheet" media="screen" href="/dist/handsontable.full.css"> -->
+    <script src="main.js"></script>
+    <script></script>
+
+  </head>
+
+  <body>
+    
+    
+    
+   <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script> -->
+    
+  <!--   <script src="/dist/handsontable.full.js"></script> -->
+
+  </body>
+
+</html>
+
+  win.loadURL(url.format({
+    pathname: path.join(__dirname, 'ok.html'),
+    protocol: 'file:',
+    slashes: true
+  }))
+
+
+  <html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="assets/main.css" />
+
+    <script src="handsontable.full.js"></script>
+    <link rel="stylesheet" type="text/css" href="handsontable.full.min.css">
+    
+   <title>TechLab Intake App</title>
+    <script type="text/javascript">
+        //<![CDATA[
+       // require('renderer.js')
+        window.onload = function () {
+            var dataObject = [
+                {
+                    id: 1,
+                    flag: 'EUR',
+                    currencyCode: 'EUR',
+                    currency: 'Euro',
+                    level: 0.9033,
+                    units: 'EUR / USD',
+                    asOf: '08/19/2015',
+                    onedChng: 0.0026
+                },
+                {
+                    id: 2,
+                    flag: 'JPY',
+                    currencyCode: 'JPY',
+                    currency: 'Japanese Yen',
+                    level: 124.3870,
+                    units: 'JPY / USD',
+                    asOf: '08/19/2015',
+                    onedChng: 0.0001
+                },
+                {
+                    id: 3,
+                    flag: 'GBP',
+                    currencyCode: 'GBP',
+                    currency: 'Pound Sterling',
+                    level: 0.6396,
+                    units: 'GBP / USD',
+                    asOf: '08/19/2015',
+                    onedChng: 0.00
+                },
+                {
+                    id: 4,
+                    flag: 'CHF',
+                    currencyCode: 'CHF',
+                    currency: 'Swiss Franc',
+                    level: 0.9775,
+                    units: 'CHF / USD',
+                    asOf: '08/19/2015',
+                    onedChng: 0.0008
+                },
+                {
+                    id: 5,
+                    flag: 'CAD',
+                    currencyCode: 'CAD',
+                    currency: 'Canadian Dollar',
+                    level: 1.3097,
+                    units: 'CAD / USD',
+                    asOf: '08/19/2015',
+                    onedChng: -0.0005
+                }
+
+            ];
+            var currencyCodes = ['EUR', 'JPY', 'GBP', 'CHF', 'CAD', 'AUD', 'NZD', 'SEK', 'NOK', 'BRL', 'CNY', 'RUB', 'INR', 'TRY', 'THB', 'IDR', 'MYR', 'MXN', 'ARS', 'DKK', 'ILS', 'PHP'];
+
+            var hotElement = document.querySelector('#hot');
+            var hotElementContainer = hotElement.parentNode;
+            var hotSettings = {
+                data: dataObject,
+                columns: [
+                    {
+                        data: 'id',
+                        type: 'numeric',
+                        width: 40
+                    },
+                    {
+                        data: 'currencyCode',
+                        type: 'text'
+                    },
+                    {
+                        data: 'currency',
+                        type: 'text'
+                    },
+                    {
+                        data: 'level',
+                        type: 'numeric',
+                        format: '0.0000'
+                    },
+                    {
+                        data: 'units',
+                        type: 'text'
+                    },
+                    {
+                        data: 'asOf',
+                        type: 'date',
+                        dateFormat: 'MM/DD/YYYY'
+                    },
+                    {
+                        data: 'onedChng',
+                        type: 'numeric',
+                        format: '0.00%'
+                    }
+                ],
+                stretchH: 'all',
+                autoWrapRow: true,
+                height: document.body.clientHeight,
+                maxRows: 22,
+                rowHeaders: true,
+                colHeaders: [
+                    'ID',
+                    'Full Name',
+                    'File Name',
+                    'Material',
+                    'Cost',
+                    'Units',
+                    'Date',
+                    'Change'
+                ],
+                manualRowResize: true,
+                manualColumnResize: true,
+                manualRowMove: true,
+                manualColumnMove: true,
+                contextMenu: true,
+                filters: true,
+                dropdownMenu: true
+            };
+            var hot = new Handsontable(hotElement, hotSettings);
+        }//]]>
+    </script>
+
+</head>
+
+<body onkeydown="console.log(event)" onkeyup="console.log(event)">
+    <h2>Print Queue</h2>
+    <div id="hot"></div>
+   <!--  <button id="new-window" type="button" class="btn btn-primary">New</button>
+    <p id="demo"></p>
+    
+    <button type="button" class="btn btn-primary" onClick="printInputted">Start</button> -->
+    
+</body>
+</html>
+
+
+var hotElement = document.querySelector('#hot');
+            var hotElementContainer = hotElement.parentNode;
+            var hotSettings = {
+                data: dataOb,
+                columns: [
+                    {
+                        data: 'id',
+                        type: 'numeric',
+                        width: 40
+                    },
+                    {
+                        data: 'currencyCode',
+                        type: 'text'
+                    },
+                    {
+                        data: 'currency',
+                        type: 'text'
+                    },
+                    {
+                        data: 'level',
+                        type: 'numeric',
+                        format: '0.0000'
+                    },
+                    {
+                        data: 'units',
+                        type: 'text'
+                    },
+                    {
+                        data: 'asOf',
+                        type: 'date',
+                        dateFormat: 'MM/DD/YYYY'
+                    },
+                    {
+                        data: 'onedChng',
+                        type: 'numeric',
+                        format: '0.00%'
+                    }
+                ],
+                stretchH: 'all',
+                autoWrapRow: true,
+                height: document.body.clientHeight,
+                maxRows: 22,
+                rowHeaders: true,
+                colHeaders: [
+                    'ID',
+                    'Full Name',
+                    'File Name',
+                    'Material',
+                    'Cost',
+                    'Units',
+                    'Date',
+                    'Change'
+                ],
+                manualRowResize: true,
+                manualColumnResize: true,
+                manualRowMove: true,
+                manualColumnMove: true,
+                contextMenu: true,
+                filters: true,
+                dropdownMenu: true
+            };
+            var hot = new Handsontable(hotElement, hotSettings);
+        }//]]>
+
+
+        var hotElement = document.querySelector('#hot');
+            var hotElementContainer = hotElement.parentNode;
+            var hotSettings = {
+                data: dataOb,
+                columns: [
+                    {
+                        data: 'name',
+                        type: 'text'
+                    },
+                    {
+                        data: 'file',
+                        type: 'text'
+                    }
+                ],
+                stretchH: 'all',
+                autoWrapRow: true,
+                height: document.body.clientHeight,
+                maxRows: 22,
+                rowHeaders: true,
+                colHeaders: [
+                    'ID',
+                    'Full Name',
+                    'File Name',
+                    'Material',
+                    'Cost',
+                    'Units',
+                    'Date',
+                    'Change'
+                ],
+                manualRowResize: true,
+                manualColumnResize: true,
+                manualRowMove: true,
+                manualColumnMove: true,
+                contextMenu: true,
+                filters: true,
+                dropdownMenu: true
+            };
