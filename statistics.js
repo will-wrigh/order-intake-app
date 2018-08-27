@@ -35,6 +35,7 @@ window.onload = function () {
       });
     });
 
+    var stringFields=["association", "color", "purpose", "printer"]
     modeQuery = ""
     for (i in stringFields){
       modeQuery = " SELECT " + stringFields[i] + " FROM queue GROUP BY " + stringFields[i] + " ORDER BY COUNT(*) DESC LIMIT 1;"

@@ -12,7 +12,7 @@ let mainWindow
 
 function createWindow () {
 
-  mainWindow = new BrowserWindow({width: 900, height: 800})
+  mainWindow = new BrowserWindow({width: 1100, height: 800})
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
@@ -28,10 +28,10 @@ function createWindow () {
     console.log('f5 is pressed')
     mainWindow.reload()
   })
-  globalShortcut.register('CommandOrControl+R', function() {
-    console.log('CommandOrControl+R is pressed')
-    mainWindow.reload()
-  })
+  // globalShortcut.register('CommandOrControl+R', function() {
+  //   console.log('CommandOrControl+R is pressed')
+  //   mainWindow.reload()
+  // })
   
 }
 

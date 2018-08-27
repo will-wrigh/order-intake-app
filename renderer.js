@@ -275,8 +275,11 @@ function updateDisplay(options, optionList){
   }
 
 }
-
-
+var bgd = (localStorage.getItem("background")); //gets current list of options for the parameter selected
+console.log(bgd);
+document.getElementById('background').style.background = "url(file:///images/" + bgd + ")";
+document.getElementById('background').style.backgroundRepeat = false;
+// document.getElementById('background').style.background-size = "cover";
             //var data = win.getHotData();
            //  var data = localStorage.getItem("data")
            //  var update = "UPDATE queue SET material = '2' WHERE id=1"

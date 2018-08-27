@@ -69,6 +69,17 @@ function updateDisplay(options, optionList){
 		}
 	}
 }
+var fs = require('fs');
+var files = fs.readdirSync('.///images');
+var optionList = document.getElementById('backgroundOptions');
+updateDisplay(files, optionList);
+
+const backgroundBtn = document.getElementById('backgroundUpdate');
+backgroundBtn.addEventListener('click', function (event) {
+	var idx = optionList.value;
+	var newImg = optionList[idx].innerHTML;
+	localStorage.setItem("background", newImg);
+});
 
 const databaseWindowBtn = document.getElementById('database-window')
 databaseWindowBtn.addEventListener('click', function (event) {
@@ -81,3 +92,4 @@ databaseWindowBtn.addEventListener('click', function (event) {
 	});
 
 }
+
