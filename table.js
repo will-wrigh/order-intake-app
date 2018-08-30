@@ -144,6 +144,7 @@ window.onload = function () {
             var name = field.full_name + " (" + field.netID + ")";
             var material = field.material;
             var cost = (material - (material%100))/100; //integer division to get cost
+            var costResin = (material - (material%50))/50; //integer division to get cost
             var file = field.file;
             if (file!=null){
                 var fileName = file.split(' ').pop(); //get last part of file path as file name
@@ -156,7 +157,7 @@ window.onload = function () {
 
             if (fileType=='form') {
                 material = material + " mL";
-                cost = (cost+1)*4; //cost for resin 
+                cost = (costResin+1)*4; //cost for resin 
             }
             else {
                 material = material + " g";
@@ -194,6 +195,7 @@ window.onload = function () {
                 }
             }
         }
+        alert('Data Saved!')
     });
 
     const statsWindowBtn = document.getElementById('stats-window')

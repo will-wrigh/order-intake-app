@@ -11,8 +11,6 @@ const {getCurrentWindow, globalShortcut} = require('electron').remote;
   //remote = require('remote'),
   //dialog = remote.require('dialog');
 
-var sqlCreds = ["mysql.ecdsdev.org","hortontestuser","f%jUY78NH$#mK87F","hortontestdb"];
-var x = localStorage.setItem("sqlCreds", JSON.stringify(sqlCreds));
 var currSqlCreds = JSON.parse(localStorage.getItem("sqlCreds")); //gets current list of options for the parameter selected
 
 var con = mysql.createConnection({
@@ -72,28 +70,28 @@ fileSel.addEventListener('change',function(event){
   // return errors
 });
 
-function checkPrintType(myfile,printType){
-  errors = ""
-  if (myfile=="") return "";
-  var ext = myfile.split('.').pop();
-  if (printType=='Form'){
-    if(ext=="form"){
-    }
-    else{
-      errors+=("Invalid File Extension: ." + ext + " Should be .form for " + printType+"\n")
-      //file.value = "" // clears value
-    }
-  }
-  else{
-    if(ext=="amf"){
-    }
-    else{
-      errors+=("Invalid File Extension: ." + ext + " Should be .amf for " + printType+"\n")
-      //file.value = ""    
-    } 
-  }
-  return errors;
-}
+// function checkPrintType(myfile,printType){
+//   errors = ""
+//   if (myfile=="") return "";
+//   var ext = myfile.split('.').pop();
+//   if (printType=='Form'){
+//     if(ext=="form"){
+//     }
+//     else{
+//       errors+=("Invalid File Extension: ." + ext + " Should be .form for " + printType+"\n")
+//       //file.value = "" // clears value
+//     }
+//   }
+//   else{
+//     if(ext=="amf"){
+//     }
+//     else{
+//       errors+=("Invalid File Extension: ." + ext + " Should be .amf for " + printType+"\n")
+//       //file.value = ""    
+//     } 
+//   }
+//   return errors;
+// }
 
 const newProject = document.getElementById('add-proj')
 newProject.addEventListener('click', function (event) {
@@ -159,7 +157,8 @@ newProject.addEventListener('click', function (event) {
   file=document.getElementById("file");
   myfile=document.getElementById("file").value.toString(); //find which parameter the user selected
   
-  var printErrors = checkPrintType(myfile,printType);
+  var printErrors = ""
+  // checkPrintType(myfile,printType);
   if (printErrors!=""){
     errors+=printErrors;
     file.value="";
@@ -188,41 +187,41 @@ newProject.addEventListener('click', function (event) {
   }
   else{
     var alertA = "Successfully added print! Open the queue to check it out."
-      console.log(fileName);
+    // var initialPath = "/Users/tartarus/Desktop/Fall2018/"
+
+    // var path = "/Users/tartarus/Desktop/Fall2018/"+ netID
+    // var dir = "/Users/tartarus/Desktop/Fall2018/" + netID + "/"
+    // // var path = "C:\\Users\\shali\\Desktop\\Fall18\\" + netID
+    // // var dir = "C:\\Users\\shali\\Desktop\\Fall18\\" + netID + "\\"
+
+    // var newpath = path.join(initialPath, netID);
+    // fs.mkdirSync(newpath);
+    // if (!fs.existsSync(dir)){
+    //   var newpath = path.join(initialPath, netID);
+    //   fs.mkdirSync(newpath);
+    // }
+    // filePath = path+"/"+fileN
+    //   fs.writeFileSync(filePath, file.value, function (err) {
+    //     if (err === undefined) {
+    //     } else {
+    //       alert('File save error', err.message);
+    //     }
+    //   });
+    
       var add = "INSERT INTO queue (proj_name, full_name, phone_num, netID , association, color, printer, infill, resolution, material, time_min, file, purpose, date, comments) VALUES ('"  
        + projName + "','" + fullName + "', '" + phone + "','" + netID + "','" + school + "','" + color + "','" + printer + "','" + infill + "','" + resolution + "','" + material+ "','" + time + "','" + fileName + "','" + purpose+"','"+fullDate+"','"+comments+"')";
       con.connect(function(err) {
-      if (err) throw err;
-      console.log("Connected!");
-      con.query(add, function (err, result) { 
         if (err) throw err;
-        // alertA += projName + " print added!";
-        
-        console.log(result);
-      });
-      con.end();
+        console.log("Connected!");
+        con.query(add, function (err, result) { 
+          if (err) throw err;
+        });
+        con.end();
       });
       alert(alertA);
-      getCurrentWindow().reload();
+      //getCurrentWindow().reload();
   }
-  var path = "C:\\Users\\shali\\Desktop\\Fall18\\" + netID
-  var dir = "C:\\Users\\shali\\Desktop\\Fall18\\" + netID + "\\"
-  if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
-  }
-    filePath = path+"\\"+fileN
-      fs.writeFileSync(filePath, file.value, function (err) {
-        if (err === undefined) {
-          console.log("saved");
-          console.log(filePath)
-          dialog.showMessageBox({
-            message: 'The file has been saved!',
-            buttons: ['OK']
-          });
-        } else {
-          dialog.showErrorBox('File save error', err.message);
-        }
-      });
+ 
   
 
 });
@@ -233,9 +232,24 @@ newWindowBtn.addEventListener('click', function (event) {
   let win = new BrowserWindow({ width: 1100, height: 700})
   
 	win.loadURL('file://' + __dirname + '/queue.html');
-	  win.on('close', function () { 
-      win = null;
-    })
+
+    win.on('close', function(e){
+      alert('closing');
+      var choice = require('electron').dialog.showMessageBox(this,
+          {
+            type: 'question',
+            buttons: ['Yes', 'No'],
+            title: 'Confirm',
+            message: 'Are you sure you want to quit?'
+         });
+         if(choice == 1){
+           e.preventDefault();
+         }
+    });
+
+	  // win.on('close', function () { 
+   //    win = null;
+   //  })
 	  win.show()
 	});
 
@@ -279,27 +293,3 @@ var bgd = (localStorage.getItem("background")); //gets current list of options f
 console.log(bgd);
 document.getElementById('background').style.background = "url(file:///images/" + bgd + ")";
 document.getElementById('background').style.backgroundRepeat = false;
-// document.getElementById('background').style.background-size = "cover";
-            //var data = win.getHotData();
-           //  var data = localStorage.getItem("data")
-           //  var update = "UPDATE queue SET material = '2' WHERE id=1"
-           //  var updates = ['completed','emailSent','paidFor','imageTaken']
-           // // con.end();
-           //  //con.connect(function(err) {
-           //      //if (err) throw err;
-           //    console.log("Connected!");
-
-           //      for (i = 0; i < data.length; i++) { 
-           //          if(data[i][0]!=null){
-           //              for (k = 4; k < 8; k++) { //loops through columns 4-8 and updates database
-           //                  query = " UPDATE queue SET " + updates[k-4] + " = '" + data[i][k] +"' WHERE id=" + data[i][0]+";";
-           //                  console.log(query)
-           //                  con.query(query, function (err, result) {
-           //                      if(err) throw err;
-           //                      console.log(result)
-           //                      //con.end();
-           //                  });
-
-           //              }
-           //          }
-           //      }

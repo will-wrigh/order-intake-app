@@ -15,7 +15,7 @@ var con = mysql.createConnection({
 // var del = "ALTER TABLE queue DROP COLUMN completed"
 // var addCol = "ALTER TABLE queue ADD COLUMN completed VARCHAR(255) DEFAULT 'no'"
 // var change = "UPDATE queue SET completed = 'no',completed='yes' WHERE id=1,id=14"
-var delData = "DELETE FROM queue WHERE id > 23"
+var delData = "DELETE FROM queue WHERE id = 59"
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
