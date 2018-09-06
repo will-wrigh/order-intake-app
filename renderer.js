@@ -210,14 +210,14 @@ newProject.addEventListener('click', function (event) {
     
       var add = "INSERT INTO queue (proj_name, full_name, phone_num, netID , association, color, printer, infill, resolution, material, time_min, file, purpose, date, comments) VALUES ('"  
        + projName + "','" + fullName + "', '" + phone + "','" + netID + "','" + school + "','" + color + "','" + printer + "','" + infill + "','" + resolution + "','" + material+ "','" + time + "','" + fileName + "','" + purpose+"','"+fullDate+"','"+comments+"')";
-      con.connect(function(err) {
-        if (err) throw err;
-        console.log("Connected!");
+      //con.connect(function(err) {
+        //if (err) throw err;
+        //console.log("Connected!");
         con.query(add, function (err, result) { 
           if (err) throw err;
         });
-        con.end();
-      });
+        //con.end();
+      //});
       alert(alertA);
       //getCurrentWindow().reload();
   }
@@ -234,17 +234,43 @@ newWindowBtn.addEventListener('click', function (event) {
 	win.loadURL('file://' + __dirname + '/queue.html');
 
     win.on('close', function(e){
-      alert('closing');
-      var choice = require('electron').dialog.showMessageBox(this,
-          {
-            type: 'question',
-            buttons: ['Yes', 'No'],
-            title: 'Confirm',
-            message: 'Are you sure you want to quit?'
-         });
-         if(choice == 1){
-           e.preventDefault();
-         }
+
+    //       var currSqlCreds = JSON.parse(localStorage.getItem("sqlCreds")); //gets current list of options for the parameter selected
+    // // console.log(currSqlCreds);
+    // var con = mysql.createConnection({
+    //   host: currSqlCreds[0],
+    //   user: currSqlCreds[1],
+    //   password: currSqlCreds[2],
+    //   database: currSqlCreds[3],
+    //   multipleStatements: true
+    // });
+    //     var data = JSON.parse(localStorage.getItem("data"));
+    //     var updates = ['completed','emailSent','paidFor','imageTaken','comments'] 
+
+    //     for (i = 0; i < data.length; i++) { 
+    //         if(data[i][0]!=null){ //skips empty rows 
+    //             for (k = 6; k < 11; k++) { //loops through columns 6-11 and updates database
+    //                 query = " UPDATE queue SET " + updates[k-6] + " = '" + data[i][k] +"' WHERE id=" + data[i][0]+";";
+    //                 con.query(query, function (err, result) {
+    //                     if(err) throw err;
+    //                 });
+
+    //             }
+    //         }
+    //     }
+    //     alert('Data Saved!')
+        win=null;
+      //alert('closing');
+      // var choice = require('electron').dialog.showMessageBox(this,
+      //     {
+      //       type: 'question',
+      //       buttons: ['Yes', 'No'],
+      //       title: 'Confirm',
+      //       message: 'Are you sure you want to quit?'
+      //    });
+      //    if(choice == 1){
+      //      e.preventDefault();
+      //    }
     });
 
 	  // win.on('close', function () { 

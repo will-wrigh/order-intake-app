@@ -167,9 +167,10 @@ window.onload = function () {
             newDataArray.push([field.id,name,createNew(fileName,field.id),field.date,cost,material,field.completed,field.emailSent,field.imageTaken,field.paidFor,field.comments,field.printer]);
             k+=1;
         }
+        localStorage.setItem("data", JSON.stringify(hot.getData()));
         hot.populateFromArray(0, 0, newDataArray);
         hot.render();
-        localStorage.setItem("data", JSON.stringify(hot.getData())); //put data array in local storage
+         //put data array in local storage
       });
     });
 
@@ -194,8 +195,14 @@ window.onload = function () {
 
                 }
             }
+            // if (data[i][1] == ""){
+            //     var delData = "DELETE FROM queue WHERE id = " + data[i][0]
+            //         con.query(delData, function (err, result) {
+            //             if(err) throw err;
+            //         });
+            // }
         }
-        alert('Data Saved!')
+        alert('Saving...please wait 5s before closing!')
     });
 
     const statsWindowBtn = document.getElementById('stats-window')
