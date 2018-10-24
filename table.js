@@ -109,8 +109,8 @@ window.onload = function () {
         stretchH: 'all',
         autoWrapRow: true,
         persistentState: true,
-        height: 500,
-        minRows:20,
+        height: 800,
+        minRows: 20,
         rowHeaders: false,
         colHeaders: [
             'ID','Name','File Name','Date','Cost','Material','Completed','Email Sent','Image Taken','Paid For','Comments','Printer'
@@ -180,10 +180,10 @@ window.onload = function () {
     };
 
     const saveBtn = document.getElementById('saveBtn');
-    saveBtn.addEventListener('click', function() { //saves the data in 'updates' rows by updating each row in database
+    saveBtn.addEventListener('click', function() { //saves the data in 'updates' cols by updating each row in database
 
         var data = hot.getData();
-        var updates = ['completed','emailSent','paidFor','imageTaken','comments'] 
+        var updates = ['completed','emailSent','imageTaken','paidFor','comments'] 
 
         for (i = 0; i < data.length; i++) { 
             if(data[i][0]!=null){ //skips empty rows 
@@ -203,6 +203,16 @@ window.onload = function () {
             // }
         }
         alert('Saving...please wait 5s before closing!')
+    });
+
+    const delBtn = document.getElementById('delBtn');
+    delBtn.addEventListener('click', function() { //saves the data in 'updates' cols by updating each row in database
+        const rowid = document.getElementById('delRowNum').value;
+        var delData = "DELETE FROM queue WHERE id = " + rowid + ";";
+        con.query(delData, function (err, result) {
+            if(err) throw err;
+        });
+        alert('Removed print from queue')
     });
 
     const statsWindowBtn = document.getElementById('stats-window')

@@ -16,10 +16,10 @@ function createWindow () {
     width: 1100, 
     height: 800,
     webPreferences: {
-      devTools: true
+      devTools: false
     }
 })
-
+  //mainWindow.webContents.openDevTools();
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',

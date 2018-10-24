@@ -100,12 +100,12 @@ newProject.addEventListener('click', function (event) {
   var fullName = document.getElementById("fullName").value.toString();
   var netID = document.getElementById("netID").value.toString();
   var phoneV = document.getElementById("phoneNum").value;
-  var timeHV = document.getElementById("timeH").value;
-  var timeMV = document.getElementById("timeM").value;
+  var timeH = document.getElementById("timeH").value;
+  var timeM = document.getElementById("timeM").value;
   var phone = document.getElementById("phoneNum").value.toString();
-  var timeH = document.getElementById("timeH").value.toString();
-  var timeM = document.getElementById("timeM").value.toString();
-  var time = timeH*60+timeM
+  // var timeH = document.getElementById("timeH").value.toString();
+  // var timeM = document.getElementById("timeM").value.toString();
+  var time = parseInt(timeH)*60+parseInt(timeM);
 
   var schoolSel = document.getElementById("prefSchool");
   var school = schoolSel.options[schoolSel.selectedIndex].text;
@@ -172,7 +172,7 @@ newProject.addEventListener('click', function (event) {
   if (parseInt(material)<=0 || isNaN(parseInt(material))){
     errors+="Enter valid material amount.\n"
   }
-  if ( ( (timeHV!="") && (timeMV!="") ) &&  (isNaN(parseInt(timeH)) || isNaN(parseInt(timeM))) ){
+  if ( ( (timeH!="") && (timeM!="") ) &&  (isNaN(parseInt(timeH)) || isNaN(parseInt(timeM))) ){
     errors+="Enter a valid time.\n"
   }
 
@@ -187,6 +187,27 @@ newProject.addEventListener('click', function (event) {
   }
   else{
     var alertA = "Successfully added print! Open the queue to check it out."
+
+    // var fs = require('fs');
+    // var fileName = file.files[0].path.toString();
+    // fileName = fileName.replace(/(\\|\/)/g, ' ');
+    // var fileN = fileName.split(' ').pop();
+    // console.log(fileN);
+    // var path = "/Users/tartarus/Desktop/Fall18"
+    // //path.join(path, netID);
+
+    // // if (!fs.existsSync(dir)){
+    // //    fs.mkdirSync(dir);
+    // // }
+    // try {  
+    //   filePath = path+"/"+fileN;
+    //   console.log(filePath);
+    //   fs.writeFileSync(filePath, file.value, 'utf-8'); 
+    // }
+    // catch(e) { 
+    //   alert('Failed to save the file !'); 
+    // }  
+
     // var initialPath = "/Users/tartarus/Desktop/Fall2018/"
 
     // var path = "/Users/tartarus/Desktop/Fall2018/"+ netID
@@ -226,14 +247,25 @@ newProject.addEventListener('click', function (event) {
 
 });
 
+var win = null;
 const newWindowBtn = document.getElementById('queue-window')
 newWindowBtn.addEventListener('click', function (event) {
-
-  let win = new BrowserWindow({ width: 1100, height: 700})
+  console.log(win);
+  if (!win){
+   win = new BrowserWindow({ width: 1100, height: 700})
+   win.loadURL('file://' + __dirname + '/queue.html');
+   win.on('close', function () {
+     win = null;
+   })
+   console.log('here');
+   win.show()
+ }
+ else{
   
-	win.loadURL('file://' + __dirname + '/queue.html');
-
-    win.on('close', function(e){
+  console.log(win);
+   win.reload();
+   win.focus();
+ }
 
     //       var currSqlCreds = JSON.parse(localStorage.getItem("sqlCreds")); //gets current list of options for the parameter selected
     // // console.log(currSqlCreds);
@@ -259,7 +291,7 @@ newWindowBtn.addEventListener('click', function (event) {
     //         }
     //     }
     //     alert('Data Saved!')
-        win=null;
+        
       //alert('closing');
       // var choice = require('electron').dialog.showMessageBox(this,
       //     {
@@ -271,7 +303,7 @@ newWindowBtn.addEventListener('click', function (event) {
       //    if(choice == 1){
       //      e.preventDefault();
       //    }
-    });
+ 
 
 	  // win.on('close', function () { 
    //    win = null;

@@ -53,3 +53,7 @@ h2,h3{
 .background {
     
 }
+
+#beLeft{
+	float: left;
+}

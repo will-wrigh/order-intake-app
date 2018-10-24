@@ -14,7 +14,7 @@
               multipleStatements: true
             });
             id=location.search.split('id=')[1];
-            var sel = "SELECT proj_name, full_name, phone_num, netID , association, color, printer, infill, resolution, material, time_hr, time_min, file, purpose, date FROM queue WHERE id="+id;
+            var sel = "SELECT proj_name, full_name, phone_num, netID , association, color, printer, infill, resolution, material, time_min, file, purpose, date FROM queue WHERE id="+id;
             con.connect(function(err) {
               if (err) throw err;
               console.log("Connected!");
@@ -36,6 +36,10 @@
                 document.getElementById('file').innerHTML = fileName;
                 document.getElementById('purpose').innerHTML = field.purpose;
                 document.getElementById('date').innerHTML = field.date;
+                var timeH = Math.floor(field.time_min/60);
+                var timeM = Math.round(60*((field.time_min/60)%1))
+                var timeT = timeH + "hr " + timeM + " min"
+                document.getElementById('time').innerHTML = timeT;
 
               });
             });
