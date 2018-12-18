@@ -188,59 +188,41 @@ newProject.addEventListener('click', function (event) {
   else{
     var alertA = "Successfully added print! Open the queue to check it out."
 
-    // var fs = require('fs');
-    // var fileName = file.files[0].path.toString();
-    // fileName = fileName.replace(/(\\|\/)/g, ' ');
-    // var fileN = fileName.split(' ').pop();
-    // console.log(fileN);
-    // var path = "/Users/tartarus/Desktop/Fall18"
-    // //path.join(path, netID);
+    //saving file to Fall 2018 folder on desktop
+    var file_data = file.files[0]
+    if (file.value!=""){
+      var fileName = file.files[0].path.toString().split(/(\\|\/)/g).pop();
+    }
 
-    // // if (!fs.existsSync(dir)){
-    // //    fs.mkdirSync(dir);
-    // // }
-    // try {  
-    //   filePath = path+"/"+fileN;
-    //   console.log(filePath);
-    //   fs.writeFileSync(filePath, file.value, 'utf-8'); 
-    // }
-    // catch(e) { 
-    //   alert('Failed to save the file !'); 
-    // }  
+    var fs = require('fs');
+    var dir = "/Users/tartarus/Desktop/Fall 2018/" + netID + "/"
+    var pathstr = dir + fileName 
 
-    // var initialPath = "/Users/tartarus/Desktop/Fall2018/"
-
-    // var path = "/Users/tartarus/Desktop/Fall2018/"+ netID
-    // var dir = "/Users/tartarus/Desktop/Fall2018/" + netID + "/"
-    // // var path = "C:\\Users\\shali\\Desktop\\Fall18\\" + netID
-    // // var dir = "C:\\Users\\shali\\Desktop\\Fall18\\" + netID + "\\"
-
-    // var newpath = path.join(initialPath, netID);
-    // fs.mkdirSync(newpath);
-    // if (!fs.existsSync(dir)){
-    //   var newpath = path.join(initialPath, netID);
-    //   fs.mkdirSync(newpath);
-    // }
-    // filePath = path+"/"+fileN
-    //   fs.writeFileSync(filePath, file.value, function (err) {
-    //     if (err === undefined) {
-    //     } else {
-    //       alert('File save error', err.message);
-    //     }
-    //   });
+    if (!fs.existsSync(dir)){
+       fs.mkdirSync(dir);
+       console.log('made')
+    }
+    try {  
+      fs.writeFileSync(pathstr, file_data, 'utf-8'); 
+    }
+    catch(e) { 
+      alertA = 'File Save Failed'; 
+      console.log(e)
+      console.log(data)
+    }  
     
-      var add = "INSERT INTO queue (proj_name, full_name, phone_num, netID , association, color, printer, infill, resolution, material, time_min, file, purpose, date, comments) VALUES ('"  
-       + projName + "','" + fullName + "', '" + phone + "','" + netID + "','" + school + "','" + color + "','" + printer + "','" + infill + "','" + resolution + "','" + material+ "','" + time + "','" + fileName + "','" + purpose+"','"+fullDate+"','"+comments+"')";
-      //con.connect(function(err) {
-        //if (err) throw err;
-        //console.log("Connected!");
-        con.query(add, function (err, result) { 
-          if (err) throw err;
-        });
-        //con.end();
-      //});
-      alert(alertA);
-      //getCurrentWindow().reload();
+    var add = "INSERT INTO queue (proj_name, full_name, phone_num, netID , association, color, printer, infill, resolution, material, time_min, file, purpose, date, comments) VALUES ('"  
+     + projName + "','" + fullName + "', '" + phone + "','" + netID + "','" + school + "','" + color + "','" + printer + "','" + infill + "','" + resolution + "','" + material+ "','" + time + "','" + fileName + "','" + purpose+"','"+fullDate+"','"+comments+"')";
+    //con.connect(function(err) {
+      //if (err) throw err;
+      //console.log("Connected!");
+      con.query(add, function (err, result) { 
+        if (err) throw err;
+      });
+      //con.end();
+    //});
+    alert(alertA);
+    //getCurrentWindow().reload();
   }
  
   
@@ -252,11 +234,12 @@ const newWindowBtn = document.getElementById('queue-window')
 newWindowBtn.addEventListener('click', function (event) {
   console.log(win);
   if (!win){
-   win = new BrowserWindow({ width: 1100, height: 700})
+   win = new BrowserWindow({ width: 1500, height: 900})
    win.loadURL('file://' + __dirname + '/queue.html');
    win.on('close', function () {
      win = null;
    })
+   win.scrollTo(0,900);
    console.log('here');
    win.show()
  }

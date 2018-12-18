@@ -7,7 +7,6 @@ window.onload = function () {
     var nodemailer = require('nodemailer');
 
     var currSqlCreds = JSON.parse(localStorage.getItem("sqlCreds")); //gets current list of options for the parameter selected
-    // console.log(currSqlCreds);
     var con = mysql.createConnection({
       host: currSqlCreds[0],
       user: currSqlCreds[1],
@@ -44,6 +43,10 @@ window.onload = function () {
     });
 
     var hotElement = document.querySelector('#hot');
+    var first = 1;
+    // var hotEl = document.getElementById("hot");
+    // hotEl.scrollTop = hotEl.scrollHeight;
+
     var hotElementContainer = hotElement.parentNode;
     var hotSettings = {
         data: info,
@@ -109,18 +112,36 @@ window.onload = function () {
         stretchH: 'all',
         autoWrapRow: true,
         persistentState: true,
-        height: 800,
-        minRows: 20,
+        height: 700,
         rowHeaders: false,
         colHeaders: [
             'ID','Name','File Name','Date','Cost','Material','Completed','Email Sent','Image Taken','Paid For','Comments','Printer'
         ],
         contextMenu: true,
         filters: true,
-        //dropdownMenu: true,
+        afterChange: 
+        function(changes, src) {
+            if (src !== 'loadData') {
+                data = hot.getData();
+                if (first) { //scroll to bottom on open
+                    hot.scrollViewportTo(data.length-1,0);
+                    // hot.selectCell(data.length-1,0)
+                    first = 0;
+                }
+               
+               var row = changes[0][0]
+               var id = data[row][0]
+               var col = changes[0][1]
+               var newVal = changes[0][3]
+               var query = " UPDATE queue SET " + col + " = '" + newVal +"' WHERE id=" + id +";";
+               con.query(query, function (err, result) {
+                   if(err) throw err;
+               });
+               console.log(query);
+            }
+        },
         allowInsertRow: true,
         comments: true,
-        //colWidths:[50,50,50,50,50,50,50,50,50,50,50,50,50],
         hiddenColumns:{columns:[11]}
         
     };
@@ -179,31 +200,31 @@ window.onload = function () {
         return html
     };
 
-    const saveBtn = document.getElementById('saveBtn');
-    saveBtn.addEventListener('click', function() { //saves the data in 'updates' cols by updating each row in database
+    // const saveBtn = document.getElementById('saveBtn');
+    // saveBtn.addEventListener('click', function() { //saves the data in 'updates' cols by updating each row in database
 
-        var data = hot.getData();
-        var updates = ['completed','emailSent','imageTaken','paidFor','comments'] 
+    //     var data = hot.getData();
+    //     var updates = ['completed','emailSent','imageTaken','paidFor','comments'] 
 
-        for (i = 0; i < data.length; i++) { 
-            if(data[i][0]!=null){ //skips empty rows 
-                for (k = 6; k < 11; k++) { //loops through columns 6-11 and updates database
-                    query = " UPDATE queue SET " + updates[k-6] + " = '" + data[i][k] +"' WHERE id=" + data[i][0]+";";
-                    con.query(query, function (err, result) {
-                        if(err) throw err;
-                    });
+    //     for (i = 0; i < data.length; i++) { 
+    //         if(data[i][0]!=null){ //skips empty rows 
+    //             for (k = 6; k < 11; k++) { //loops through columns 6-11 and updates database
+    //                 query = " UPDATE queue SET " + updates[k-6] + " = '" + data[i][k] +"' WHERE id=" + data[i][0]+";";
+    //                 con.query(query, function (err, result) {
+    //                     if(err) throw err;
+    //                 });
 
-                }
-            }
-            // if (data[i][1] == ""){
-            //     var delData = "DELETE FROM queue WHERE id = " + data[i][0]
-            //         con.query(delData, function (err, result) {
-            //             if(err) throw err;
-            //         });
-            // }
-        }
-        alert('Saving...please wait 5s before closing!')
-    });
+    //             }
+    //         }
+    //         // if (data[i][1] == ""){
+    //         //     var delData = "DELETE FROM queue WHERE id = " + data[i][0]
+    //         //         con.query(delData, function (err, result) {
+    //         //             if(err) throw err;
+    //         //         });
+    //         // }
+    //     }
+    //     alert('Saving...please wait 5s before closing!')
+    // });
 
     const delBtn = document.getElementById('delBtn');
     delBtn.addEventListener('click', function() { //saves the data in 'updates' cols by updating each row in database
