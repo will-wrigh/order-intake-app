@@ -63,7 +63,7 @@
 			"file": "main.js",
 			"settings":
 			{
-				"buffer_size": 1016,
+				"buffer_size": 1135,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -72,17 +72,27 @@
 			"file": "table.js",
 			"settings":
 			{
-				"buffer_size": 11121,
+				"buffer_size": 13689,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "renderer.js",
+			"file": "/C/Users/shali/Downloads/Leap_Motion_Developer_Kit_4.0.0+52173/Leap_Motion_Developer_Kit_4.0.0+52173/LeapSDK/samples/ImageSample.c",
 			"settings":
 			{
-				"buffer_size": 11114,
-				"encoding": "UTF-8",
+				"buffer_size": 2384,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "// This file is required by the index.html file and will\n// be executed in the renderer process for that window.\n// All of the Node.js APIs are available in this process.\n\nconst BrowserWindow = require('electron').remote.BrowserWindow\nconst path = require('path')\nvar mysql = require('mysql')\nconst fs = require('fs')\nconst dialog = require('electron').remote.dialog\nconst {getCurrentWindow, globalShortcut} = require('electron').remote;\n  //remote = require('remote'),\n  //dialog = remote.require('dialog');\n\nvar currSqlCreds = JSON.parse(localStorage.getItem(\"sqlCreds\")); //gets current list of options for the parameter selected\n\nvar con = mysql.createConnection({\n  host: currSqlCreds[0],\n  user: currSqlCreds[1],\n  password: currSqlCreds[2],\n  database: currSqlCreds[3]\n});\n\nvar info = []\n\nvar i = 0\n\nconst printer = document.getElementById('prefPrinter');\nconst fileSel = document.getElementById('file');\n\nprinter.addEventListener('change',function(event){\n  var printerOptions = document.getElementById(\"prefPrinter\"); \n  var printType = printerOptions.options[printerOptions.selectedIndex].text;\n  console.log(printType)\n  //var printType = document.getElementById(\"prefPrinter\").value.toString(); //find which printer the user selected\n  if ((printType=='Form')){\n      document.getElementById('units').innerHTML = 'mL'; //changes material units to grams for Taz or Monoprice Prints\n  }\n  else{\n    document.getElementById('units').innerHTML = 'g' //changes material units to mL for printers other than Taz or Monoprice\n  }\n});\n\nfileSel.addEventListener('change',function(event){\n  var printerOptions = document.getElementById(\"prefPrinter\"); \n  var printType = printerOptions.options[printerOptions.selectedIndex].text.toString();\n  file=document.getElementById(\"file\");\n  myfile=document.getElementById(\"file\").value.toString(); //find which parameter the user selected\n  var errors = checkPrintType(myfile,printType);\n  if (errors!=\"\"){\n    alert(errors);\n    file.value=\"\";\n  }\n  //errors = \"\"\n  //var ext = myfile.split('.').pop();\n  // if (printType=='Form'){\n  //   if(ext==\"form\"){\n  //   }\n  //   else{\n  //     errors+=(\"Invalid File Extension: .\" + ext + \" Should be .form for \" + printType)\n  //     file.value = \"\" // clears value\n  //   }\n  // }\n  // else{\n  //   if(ext==\"amf\"){\n  //   }\n  //   else{\n  //     errors+=(\"Invalid File Extension: .\" + ext + \" Should be .amf for \" + printType)\n  //     file.value = \"\"    } \n  // }\n  // return errors\n});\n\n// function checkPrintType(myfile,printType){\n//   errors = \"\"\n//   if (myfile==\"\") return \"\";\n//   var ext = myfile.split('.').pop();\n//   if (printType=='Form'){\n//     if(ext==\"form\"){\n//     }\n//     else{\n//       errors+=(\"Invalid File Extension: .\" + ext + \" Should be .form for \" + printType+\"\\n\")\n//       //file.value = \"\" // clears value\n//     }\n//   }\n//   else{\n//     if(ext==\"amf\"){\n//     }\n//     else{\n//       errors+=(\"Invalid File Extension: .\" + ext + \" Should be .amf for \" + printType+\"\\n\")\n//       //file.value = \"\"    \n//     } \n//   }\n//   return errors;\n// }\n\nconst newProject = document.getElementById('add-proj')\nnewProject.addEventListener('click', function (event) {\n\n  var projName = document.getElementById(\"projName\").value.toString();\n  var fullName = document.getElementById(\"fullName\").value.toString();\n  var netID = document.getElementById(\"netID\").value.toString();\n  var phoneV = document.getElementById(\"phoneNum\").value;\n  var timeH = document.getElementById(\"timeH\").value;\n  var timeM = document.getElementById(\"timeM\").value;\n  var phone = document.getElementById(\"phoneNum\").value.toString();\n  // var timeH = document.getElementById(\"timeH\").value.toString();\n  // var timeM = document.getElementById(\"timeM\").value.toString();\n  var time = parseInt(timeH)*60+parseInt(timeM);\n\n  var schoolSel = document.getElementById(\"prefSchool\");\n  var school = schoolSel.options[schoolSel.selectedIndex].text;\n  var colorSel = document.getElementById(\"prefColor\");\n  var color = colorSel.options[colorSel.selectedIndex].text;\n  var printerSel = document.getElementById(\"prefPrinter\");\n  var printer = printerSel.options[printerSel.selectedIndex].text;\n  var infillSel = document.getElementById(\"prefInfill\");\n  var infill = infillSel.options[infillSel.selectedIndex].text;\n  var resolutionSel = document.getElementById(\"prefResolution\");\n  var resolution = resolutionSel.options[resolutionSel.selectedIndex].text;\n  var purposeSel = document.getElementById(\"prefPurpose\");\n  var purpose = purposeSel.options[purposeSel.selectedIndex].text;\n\n\n  var errors = \"Errors: \\n\"\n  var file = document.getElementById(\"file\");\n  if (file.value!=\"\"){\n    var fileName = file.files[0].path.toString();\n    // fileName = fileName.replace(/(\\\\|\\/)/g, ' '); //idk why i did this what am i\n    // var fileN = fileName.split(' ').pop(); \n    fileName = fileName.split(/(\\\\|\\/)/g)\n    var fileN = fileName.pop();\n    //var fileName = String(file).split(/(\\\\|\\/)/g).pop();\n    console.log(fileName);\n  }\n  else{\n    errors += \"No file added.\\n\"\n  }\n\n\n\n  var material = document.getElementById(\"material\").value.toString(); //todo add g and mL\n\n  var date = new Date();\n  var fullDate = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();\n\n  //var dataArray = [[fullName,fileName, fullDate,'no','no','no','no',cost],[]];\n  //var otherData = [netID,phone,school,color,printer,infill,resolution,time]\n  //localStorage.setItem(\"addedData\", JSON.stringify(dataArray));\n  //localStorage.setItem(\"dataArray\", JSON.stringify(otherData));\n\n  phoneNumStr = phone.toString()\n  // if (phoneNumStr.length!=10 || phoneNumStr.length!=11){ //checks if phone number is the normal 10 or 11 digits long\n  //   console.log(phoneNumStr.length);\n  //   errors += \"Phone number is invalid.\\n\"\n  // }\n  var comments = \"\";\n  var printerOptions = document.getElementById(\"prefPrinter\"); \n  var printType = printerOptions.options[printerOptions.selectedIndex].text.toString();\n  file=document.getElementById(\"file\");\n  myfile=document.getElementById(\"file\").value.toString(); //find which parameter the user selected\n  \n  var printErrors = \"\"\n  // checkPrintType(myfile,printType);\n  if (printErrors!=\"\"){\n    errors+=printErrors;\n    file.value=\"\";\n  }\n  if (fullName.indexOf(\" \") == -1){ //error if no space in full name box\n    errors += \"Full name should be first and last name.\\n\"\n  }  \n  if ((phoneV!=\"\") && isNaN(parseInt(phone))){\n    errors+=\"Enter a valid phone number.\\n\"\n  }\n  if (parseInt(material)<=0 || isNaN(parseInt(material))){\n    errors+=\"Enter valid material amount.\\n\"\n  }\n  if ( ( (timeH!=\"\") && (timeM!=\"\") ) &&  (isNaN(parseInt(timeH)) || isNaN(parseInt(timeM))) ){\n    errors+=\"Enter a valid time.\\n\"\n  }\n\n  if (timeM > 60){ //checks if phone number is the normal 10 or 11 digits long\n    errors += \"Time should be in hours and minutes.\\n\"\n  }\n  if (netID == \"\"){\n    errors += \"Enter a netID.\\n\"\n  }\n  if (errors!=\"Errors: \\n\"){\n    alert(errors);\n  }\n  else{\n    var alertA = \"Successfully added print! Open the queue to check it out.\"\n\n    // var fs = require('fs');\n    // var fileName = file.files[0].path.toString();\n    // fileName = fileName.replace(/(\\\\|\\/)/g, ' ');\n    // var fileN = fileName.split(' ').pop();\n    // console.log(fileN);\n    // var path = \"/Users/tartarus/Desktop/Fall18\"\n    // //path.join(path, netID);\n\n    // // if (!fs.existsSync(dir)){\n    // //    fs.mkdirSync(dir);\n    // // }\n    // try {  \n    //   filePath = path+\"/\"+fileN;\n    //   console.log(filePath);\n    //   fs.writeFileSync(filePath, file.value, 'utf-8'); \n    // }\n    // catch(e) { \n    //   alert('Failed to save the file !'); \n    // }  \n\n    // var initialPath = \"/Users/tartarus/Desktop/Fall2018/\"\n\n    // var path = \"/Users/tartarus/Desktop/Fall2018/\"+ netID\n    // var dir = \"/Users/tartarus/Desktop/Fall2018/\" + netID + \"/\"\n    // // var path = \"C:\\\\Users\\\\shali\\\\Desktop\\\\Fall18\\\\\" + netID\n    // // var dir = \"C:\\\\Users\\\\shali\\\\Desktop\\\\Fall18\\\\\" + netID + \"\\\\\"\n\n    // var newpath = path.join(initialPath, netID);\n    // fs.mkdirSync(newpath);\n    // if (!fs.existsSync(dir)){\n    //   var newpath = path.join(initialPath, netID);\n    //   fs.mkdirSync(newpath);\n    // }\n    // filePath = path+\"/\"+fileN\n    //   fs.writeFileSync(filePath, file.value, function (err) {\n    //     if (err === undefined) {\n    //     } else {\n    //       alert('File save error', err.message);\n    //     }\n    //   });\n    \n      var add = \"INSERT INTO queue (proj_name, full_name, phone_num, netID , association, color, printer, infill, resolution, material, time_min, file, purpose, date, comments) VALUES ('\"  \n       + projName + \"','\" + fullName + \"', '\" + phone + \"','\" + netID + \"','\" + school + \"','\" + color + \"','\" + printer + \"','\" + infill + \"','\" + resolution + \"','\" + material+ \"','\" + time + \"','\" + fileName + \"','\" + purpose+\"','\"+fullDate+\"','\"+comments+\"')\";\n      //con.connect(function(err) {\n        //if (err) throw err;\n        //console.log(\"Connected!\");\n        con.query(add, function (err, result) { \n          if (err) throw err;\n        });\n        //con.end();\n      //});\n      alert(alertA);\n      //getCurrentWindow().reload();\n  }\n \n  \n\n});\n\nvar win = null;\nconst newWindowBtn = document.getElementById('queue-window')\nnewWindowBtn.addEventListener('click', function (event) {\n  console.log(win);\n  if (!win){\n   win = new BrowserWindow({ width: 1100, height: 700})\n   win.loadURL('file://' + __dirname + '/queue.html');\n   win.on('close', function () {\n     win = null;\n   })\n   console.log('here');\n   win.show()\n }\n else{\n  \n  console.log(win);\n   win.reload();\n   win.focus();\n }\n\n    //       var currSqlCreds = JSON.parse(localStorage.getItem(\"sqlCreds\")); //gets current list of options for the parameter selected\n    // // console.log(currSqlCreds);\n    // var con = mysql.createConnection({\n    //   host: currSqlCreds[0],\n    //   user: currSqlCreds[1],\n    //   password: currSqlCreds[2],\n    //   database: currSqlCreds[3],\n    //   multipleStatements: true\n    // });\n    //     var data = JSON.parse(localStorage.getItem(\"data\"));\n    //     var updates = ['completed','emailSent','paidFor','imageTaken','comments'] \n\n    //     for (i = 0; i < data.length; i++) { \n    //         if(data[i][0]!=null){ //skips empty rows \n    //             for (k = 6; k < 11; k++) { //loops through columns 6-11 and updates database\n    //                 query = \" UPDATE queue SET \" + updates[k-6] + \" = '\" + data[i][k] +\"' WHERE id=\" + data[i][0]+\";\";\n    //                 con.query(query, function (err, result) {\n    //                     if(err) throw err;\n    //                 });\n\n    //             }\n    //         }\n    //     }\n    //     alert('Data Saved!')\n        \n      //alert('closing');\n      // var choice = require('electron').dialog.showMessageBox(this,\n      //     {\n      //       type: 'question',\n      //       buttons: ['Yes', 'No'],\n      //       title: 'Confirm',\n      //       message: 'Are you sure you want to quit?'\n      //    });\n      //    if(choice == 1){\n      //      e.preventDefault();\n      //    }\n \n\n\t  // win.on('close', function () { \n   //    win = null;\n   //  })\n\t  win.show()\n\t});\n\nconst optionsWindowBtn = document.getElementById('options-window')\noptionsWindowBtn.addEventListener('click', function (event) {\n\n  let win = new BrowserWindow({ width: 400, height: 550})\n  \n\twin.loadURL('file://' + __dirname + '/options.html');\n\t  win.on('close', function () { win = null })\n\t  win.show()\n\t});\n\n//var selectOptions = [\"Color\", \"Printer\", \"Infill\", \"Purpose\", \"Resolution\"];\nvar selectOptions = [\"Color\", \"Printer\", \"Infill\", \"Purpose\", \"Resolution\", \"School\"];\n\nfor (k = 0; k < selectOptions.length; k++){  //updates dropdown lists \n  var options = JSON.parse(localStorage.getItem(selectOptions[k]));\n  var listName = \"pref\"+selectOptions[k] //ie prefPrinter\n  var optionsList = document.getElementById(listName);\n  updateDisplay(options,optionsList);\n}\n\n\nfunction updateDisplay(options, optionList){\n  var len = options.length\n  for(i = optionList.options.length - 1 ; i >= 0 ; i--) //empty previously displayed list\n    {\n        optionList.remove(i);\n    }\n\n  if (options!=null){ //display selected list\n      for(j = 0; j < len;j++){\n      var x = options[j];\n      if (x!=null) optionList.options.add(new Option(x,j,x.selected)); \n    }\n  }\n\n}\nvar bgd = (localStorage.getItem(\"background\")); //gets current list of options for the parameter selected\nconsole.log(bgd);\ndocument.getElementById('background').style.background = \"url(file:///images/\" + bgd + \")\";\ndocument.getElementById('background').style.backgroundRepeat = false;\n",
+			"file": "renderer.js",
+			"file_size": 12888,
+			"file_write_time": 131854939518591008,
+			"settings":
+			{
+				"buffer_size": 12645,
 				"line_ending": "Windows"
 			}
 		},
@@ -90,7 +100,7 @@
 			"file": "moreInfo.js",
 			"settings":
 			{
-				"buffer_size": 2150,
+				"buffer_size": 2492,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -99,7 +109,7 @@
 			"file": "statistics.js",
 			"settings":
 			{
-				"buffer_size": 4006,
+				"buffer_size": 2965,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -108,7 +118,7 @@
 			"file": "queue.html",
 			"settings":
 			{
-				"buffer_size": 3131,
+				"buffer_size": 3444,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -126,7 +136,7 @@
 			"file": "db.js",
 			"settings":
 			{
-				"buffer_size": 1855,
+				"buffer_size": 1810,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -144,7 +154,7 @@
 			"file": "handsontable.full.js",
 			"settings":
 			{
-				"buffer_size": 2840102,
+				"buffer_size": 2020797,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -300,7 +310,7 @@
 	],
 	"find":
 	{
-		"height": 27.0
+		"height": 25.0
 	},
 	"find_in_files":
 	{
@@ -314,6 +324,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"devTools",
+			"filename",
 			"column",
 			"end()",
 			"end",
@@ -394,7 +406,7 @@
 	"groups":
 	[
 		{
-			"selected": 7,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -403,135 +415,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1016,
+						"buffer_size": 1135,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "table.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 11121,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2185.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "renderer.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 11114,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4181,
-								4181
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "moreInfo.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2150,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "statistics.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4006,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
+								373,
+								373
 							]
 						],
 						"settings":
@@ -548,12 +440,102 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "queue.html",
+					"buffer": 1,
+					"file": "table.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3131,
+						"buffer_size": 13689,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8744,
+								8789
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3552.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Users/shali/Downloads/Leap_Motion_Developer_Kit_4.0.0+52173/Leap_Motion_Developer_Kit_4.0.0+52173/LeapSDK/samples/ImageSample.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2384,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								822,
+								822
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "renderer.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12645,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								292,
+								292
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 263.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "moreInfo.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2492,
 						"regions":
 						{
 						},
@@ -566,7 +548,7 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
@@ -574,11 +556,71 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "statistics.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2965,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
 					"buffer": 6,
+					"file": "queue.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3444,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								425,
+								425
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 9.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
 					"file": "database.js",
 					"semi_transient": false,
 					"settings":
@@ -603,24 +645,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "db.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1855,
+						"buffer_size": 1810,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								355,
-								355
+								0,
+								0
 							]
 						],
 						"settings":
@@ -633,11 +675,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
 					"file": "random.html",
 					"semi_transient": false,
 					"settings":
@@ -649,8 +691,8 @@
 						"selection":
 						[
 							[
-								564,
-								564
+								186,
+								217
 							]
 						],
 						"settings":
@@ -660,27 +702,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 69.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 10,
 					"file": "handsontable.full.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2840102,
+						"buffer_size": 2020797,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1507,
-								1508
+								0,
+								0
 							]
 						],
 						"settings":
@@ -693,7 +735,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 9,
 					"type": "text"
 				}
 			]
@@ -701,7 +743,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 25.0
 	},
 	"input":
 	{
@@ -738,7 +780,7 @@
 	"project": "intakeapp.sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 46.0
 	},
 	"save_all_on_build": true,
 	"select_file":

@@ -3,6 +3,7 @@ window.onload = function () {
     const path = require('path')
     const url = require('url')
     var mysql = require('mysql');
+    var _ = require('underscore');
     const {shell} = require('electron');
     var nodemailer = require('nodemailer');
 
@@ -36,11 +37,13 @@ window.onload = function () {
         }
     ];
 
-    const exportFile = document.getElementById('exportFileButton');
-    exportFile.addEventListener('click', function() {
-        var exportPlugin = hot.getPlugin('exportFile');
-        exportPlugin.downloadFile('csv', {filename: 'Queue.csv'});
-    });
+    // const exportFile = document.getElementById('exportFileButton');
+    // exportFile.addEventListener('click', function() {
+    //     var exportPlugin = hot.getPlugin('exportFile');
+    //     exportPlugin.downloadFile('csv', {filename: 'Queue.csv'});
+    // });
+
+    var colHeaders = ['ID','Name','File Name','Date','Cost','Material','Completed','Email Sent','Image Taken','Paid For','Comments','Printer']
 
     var hotElement = document.querySelector('#hot');
     var first = 1;
@@ -114,9 +117,7 @@ window.onload = function () {
         persistentState: true,
         height: 700,
         rowHeaders: false,
-        colHeaders: [
-            'ID','Name','File Name','Date','Cost','Material','Completed','Email Sent','Image Taken','Paid For','Comments','Printer'
-        ],
+        colHeaders: colHeaders,
         contextMenu: true,
         filters: true,
         afterChange: 
@@ -256,6 +257,44 @@ window.onload = function () {
     for (k = 0; k < data.length; k++){
         options[k] = data[k][0]
     }
+
+
+
+    function parseRow(infoArray, index, csvContent) {
+        var sizeData = _.size(hot.getData());
+        if (index < sizeData - 1) {
+            dataString = "";
+            _.each(infoArray, function(col, i) {
+                dataString += _.contains(col, ",") ? "\"" + col + "\"" : col;
+                dataString += i < _.size(infoArray) - 1 ? "," : "";
+            })
+
+            csvContent += index < sizeData - 2 ? dataString + "\n" : dataString;
+        }
+        return csvContent;
+    }
+
+    const exportBtn = document.getElementById('exportBtn');
+    // exportBtn.addEventListener('click', function (event) {
+
+        Handsontable.dom.addEvent(exportBtn, "mouseup", function(e) {
+            // exportCsv.blur(); // jquery ui hackfix
+            var csvContent = "data:text/csv;charset=utf-8,";
+            // csvContent = parseRow(colHeaders, 0, csvContent);  // comment this out to remove column headers
+            _.each(hot.getData(), function(infoArray, index) {
+                csvContent = parseRow(infoArray, index, csvContent);
+            });
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Queue.csv");
+            link.click();
+        })
+    
+    // });
+
+
+
     //var posName = data[0:data.length]
     //JSON.parse(localStorage.getItem(p)); //get names of options list 
     // var optionsList = document.getElementById("posEmail");

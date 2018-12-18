@@ -16,7 +16,7 @@ function createWindow () {
     width: 1100, 
     height: 800,
     webPreferences: {
-      devTools: false
+      //devTools: false
     }
 })
   //mainWindow.webContents.openDevTools();
