@@ -70,15 +70,25 @@ function updateDisplay(options, optionList){
 	}
 }
 var fs = require('fs');
-var files = fs.readdirSync('.///images');
-var optionList = document.getElementById('backgroundOptions');
-updateDisplay(files, optionList);
+// var files = fs.readdirSync('.///images');
+// var optionList = document.getElementById('backgroundOptions');
+// updateDisplay(files, optionList);
 
-const backgroundBtn = document.getElementById('backgroundUpdate');
-backgroundBtn.addEventListener('click', function (event) {
-	var idx = optionList.value;
-	var newImg = optionList[idx].innerHTML;
-	localStorage.setItem("background", newImg);
+// const backgroundBtn = document.getElementById('backgroundUpdate');
+// backgroundBtn.addEventListener('click', function (event) {
+// 	var idx = optionList.value;
+// 	var newImg = optionList[idx].innerHTML;
+// 	localStorage.setItem("background", newImg);
+// });
+
+const emailWindowBtn = document.getElementById('email-window')
+emailWindowBtn.addEventListener('click', function (event) {
+
+  let win = new BrowserWindow({ width: 600, height: 650})
+  
+	win.loadURL('file://' + __dirname + '/email_options.html');
+	  win.on('close', function () { win = null })
+	  win.show()
 });
 
 const databaseWindowBtn = document.getElementById('database-window')
@@ -89,7 +99,11 @@ databaseWindowBtn.addEventListener('click', function (event) {
 	win.loadURL('file://' + __dirname + '/database.html');
 	  win.on('close', function () { win = null })
 	  win.show()
-	});
+});
 
 }
+
+
+
+
 

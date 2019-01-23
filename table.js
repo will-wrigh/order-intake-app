@@ -16,13 +16,7 @@ window.onload = function () {
       multipleStatements: true
     });
 
-    var transporter = nodemailer.createTransport({ // to send emails
-      service: 'gmail',
-      auth: {
-        user: 'shalsree781@gmail.com',
-        pass: ''
-      }
-    });
+    
 
   var info = [ //shows up before sql data loads
         {
@@ -138,7 +132,7 @@ window.onload = function () {
                con.query(query, function (err, result) {
                    if(err) throw err;
                });
-               console.log(query);
+               // console.log(query);
             }
         },
         allowInsertRow: true,
@@ -168,8 +162,11 @@ window.onload = function () {
             var cost = (material - (material%100))/100; //integer division to get cost
             var costResin = (material - (material%50))/50; //integer division to get cost
             var file = field.file;
-            if (file!=null){
-                var fileName = file.split(' ').pop(); //get last part of file path as file name
+            var fileName = field.file;
+            if (field.file!=null){
+                if (fileName.substring(0, 15) ==  " Users tartarus") {
+                    fileName = field.file.split(' ').pop(); //get last part of file path as file name
+                }
                 var fileType = fileName.split('.').pop(); //get part after period as file type    
             }
             else {
@@ -197,7 +194,7 @@ window.onload = function () {
     });
 
     function createNew(file,id){ //creates button with link to open more info page with corresponding id (this func is called when creating each new row)
-        var html = "<button id='new' style='background: none;border: none;text-decoration: underline;color: blue;' onclick=window.open(&quot;moreInfo.html&quot;+'?id='+"+id+")>"+file+"</button>"
+        var html = "<button id='new' style='background: none;border: none;text-decoration: underline;color: blue;' onclick=window.open(&quot;moreInfo.html&quot;+'?id='+"+id+",&quot;width=300,height=600&quot;)>"+file+"</button>"
         return html
     };
 
@@ -234,7 +231,7 @@ window.onload = function () {
         con.query(delData, function (err, result) {
             if(err) throw err;
         });
-        alert('Removed print from queue')
+        alert('Removed print from queue. Refresh the queue to reflect the changes.')
     });
 
     const statsWindowBtn = document.getElementById('stats-window')
@@ -274,22 +271,22 @@ window.onload = function () {
         return csvContent;
     }
 
-    const exportBtn = document.getElementById('exportBtn');
-    // exportBtn.addEventListener('click', function (event) {
+    // const exportBtn = document.getElementById('exportBtn');
+    // // exportBtn.addEventListener('click', function (event) {
 
-        Handsontable.dom.addEvent(exportBtn, "mouseup", function(e) {
-            // exportCsv.blur(); // jquery ui hackfix
-            var csvContent = "data:text/csv;charset=utf-8,";
-            // csvContent = parseRow(colHeaders, 0, csvContent);  // comment this out to remove column headers
-            _.each(hot.getData(), function(infoArray, index) {
-                csvContent = parseRow(infoArray, index, csvContent);
-            });
-            var encodedUri = encodeURI(csvContent);
-            var link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "Queue.csv");
-            link.click();
-        })
+    //     Handsontable.dom.addEvent(exportBtn, "mouseup", function(e) { 
+    //         // exportCsv.blur(); // jquery ui hackfix
+    //         var csvContent = "data:text/csv;charset=utf-8,";
+    //         // csvContent = parseRow(colHeaders, 0, csvContent);  // comment this out to remove column headers
+    //         _.each(hot.getData(), function(infoArray, index) {
+    //             csvContent = parseRow(infoArray, index, csvContent);
+    //         });
+    //         var encodedUri = encodeURI(csvContent);
+    //         var link = document.createElement("a");
+    //         link.setAttribute("href", encodedUri);
+    //         link.setAttribute("download", "Queue.csv");
+    //         link.click();
+    //     })
     
     // });
 
@@ -297,12 +294,12 @@ window.onload = function () {
 
     //var posName = data[0:data.length]
     //JSON.parse(localStorage.getItem(p)); //get names of options list 
-    // var optionsList = document.getElementById("posEmail");
-    // // options.unshift("All"); //adds to beginning of array
+    
+    // options.unshift("All"); //adds to beginning of array
 
     // updateDisplay(options,optionsList); //sets the possible names to email to every name in database 
 
-    // const sendEmail = document.getElementById('posEmail');
+    // const sendEmail = document.getElementById('send-email');
     // sendEmail.addEventListener('change',function(event){
     //     var toSendName = sendEmail.options[sendEmail.selectedIndex].text;
 
@@ -382,35 +379,53 @@ window.onload = function () {
 
     }
 
-//     const emailBtn = document.getElementById('send-email')
-//     emailBtn.addEventListener('click', function (event) {
-//         //need id, netid
-//         var query = "SELECT full_name,netID,proj_name FROM queue WHERE id=29;"
+    // var ops = ["gmail","emorytechlab@gmail.com","vcmjoribgxdxnreu","3D Print Ready at MakeEmory","Your 3D printing project has been completed and is ready to be picked up. As a reminder, the only accepted payments are either through Eagle Dollars (on your Emory Card) or speedtypes (for clubs, departments, etc.).\n\n" +
+    //             "MAKEmory in the Computing Center at Cox Hall is open during the following hours:\n" +
+    //             "     Monday - Thursday: noon - 8pm\n" +
+    //             "     Friday: noon - 5pm\n\nPlease feel free to stop by at your earliest convenience and someone in MAKEmory will be able to assist you.\n\n" +
+    //             "Thank you,\nMAKEmory Staff"];
+    // localStorage.setItem("emailOps", JSON.stringify(ops)); //puts new array in storage
 
-//         console.log(query)
+    // var currEmailOps = JSON.parse(localStorage.getItem("emailOps"));
+    // var transporter = nodemailer.createTransport({ // to send emails
+    //   service: currEmailOps[0],
+    //   auth: {
+    //     user: currEmailOps[1],
+    //     pass: currEmailOps[2]
+    //   }
+    // });
+
+    
+    // const emailBtn = document.getElementById('send-email')
+    // emailBtn.addEventListener('click', function (event) {
+    //     var emailID = document.getElementById("posEmail").value.toString();
+    //     console.log(emailID);
+    //     //need id, netid
+    //     var query = "SELECT full_name,netID,proj_name FROM queue WHERE id=" + emailID + ";"
         
-//           con.query(query, function (err, result) {
-//             if(err) throw err;
-//             var field = result[0]
-//             var email = field.netID+"@emory.edu"
-//             var name = field.full_name.split(' ')[0]
-//             var eText = "Hello " + name + "!\nYour " + field.proj_name + " 3D print is ready for pickup at the TechLab at MakeEmory!\nOur hours are Monday-Thursday 12pm-8pm and Friday 12pm-5pm. \nBest, \nMakeEmory Staff"
-//             var mailOptions = {
-//               from: 'shalsree781@gmail.com',
-//               to: email,
-//               subject: 'Your 3D Print is Ready at MakeEmory',
-//               text: eText
-//             }
-//             transporter.sendMail(mailOptions, function(error, info){
-//               if (error) {
-//                 console.log(error);
-//               } else {
-//                 console.log('Email sent: ' + info.response);
-//               }
-//             });
-//         });
+    //       con.query(query, function (err, result) {
+    //         if(err) throw err;
+    //         var field = result[0]
+    //         var email = field.netID+"@emory.edu"
+    //         var name = field.full_name.split(' ')[0]
+    //         var eText = "Dear " + name + ",\n\n" + currEmailOps[4]
+
+    //         var mailOptions = {
+    //           from: currEmailOps[1],
+    //           to: email,
+    //           subject: currEmailOps[3],
+    //           text: eText
+    //         }
+    //         transporter.sendMail(mailOptions, function(error, info){
+    //           if (error) {
+    //             console.log(error);
+    //           } else {
+    //             console.log('Email sent: ' + info.response);
+    //           }
+    //         });
+    //     });
         
         
-//     });
+    // });
 
  }

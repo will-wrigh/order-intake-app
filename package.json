@@ -21,6 +21,7 @@
     "electron-prebuilt": "^1.4.13"
   },
   "dependencies": {
+    "cp-file": "^6.0.0",
     "mysql": "^2.15.0",
     "nodemailer": "^4.6.4",
     "underscore": "^1.9.1",

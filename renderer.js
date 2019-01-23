@@ -10,6 +10,8 @@ const dialog = require('electron').remote.dialog
 const {getCurrentWindow, globalShortcut} = require('electron').remote;
   //remote = require('remote'),
   //dialog = remote.require('dialog');
+// var newCreds = ["mysql.ecdsdev.org","hortontestuser","f%jUY78NH$#mK87F","hortontestdb"];
+// var x = localStorage.setItem("sqlCreds", JSON.stringify(newCreds)); //puts new array in storage
 
 var currSqlCreds = JSON.parse(localStorage.getItem("sqlCreds")); //gets current list of options for the parameter selected
 
@@ -50,48 +52,31 @@ fileSel.addEventListener('change',function(event){
     alert(errors);
     file.value="";
   }
-  //errors = ""
-  //var ext = myfile.split('.').pop();
-  // if (printType=='Form'){
-  //   if(ext=="form"){
-  //   }
-  //   else{
-  //     errors+=("Invalid File Extension: ." + ext + " Should be .form for " + printType)
-  //     file.value = "" // clears value
-  //   }
-  // }
-  // else{
-  //   if(ext=="amf"){
-  //   }
-  //   else{
-  //     errors+=("Invalid File Extension: ." + ext + " Should be .amf for " + printType)
-  //     file.value = ""    } 
-  // }
-  // return errors
+
 });
 
-// function checkPrintType(myfile,printType){
-//   errors = ""
-//   if (myfile=="") return "";
-//   var ext = myfile.split('.').pop();
-//   if (printType=='Form'){
-//     if(ext=="form"){
-//     }
-//     else{
-//       errors+=("Invalid File Extension: ." + ext + " Should be .form for " + printType+"\n")
-//       //file.value = "" // clears value
-//     }
-//   }
-//   else{
-//     if(ext=="amf"){
-//     }
-//     else{
-//       errors+=("Invalid File Extension: ." + ext + " Should be .amf for " + printType+"\n")
-//       //file.value = ""    
-//     } 
-//   }
-//   return errors;
-// }
+function checkPrintType(myfile,printType){
+  errors = ""
+  if (myfile=="") return "";
+  var ext = myfile.split('.').pop();
+  if (printType=='Form'){
+    if(ext=="form"){
+    }
+    else{
+      errors+=("Invalid File Type: \'" + ext + "\'. Should be \'form\' for " + printType+"\n")
+      //file.value = "" // clears value
+    }
+  }
+  else{
+    if(ext=="3mf"){
+    }
+    else{
+      errors+=("Invalid File Type: \'" + ext + "\'. Should be \'3mf\' for " + printType+"\n")
+      //file.value = ""    
+    } 
+  }
+  return errors;
+}
 
 const newProject = document.getElementById('add-proj')
 newProject.addEventListener('click', function (event) {
@@ -125,9 +110,9 @@ newProject.addEventListener('click', function (event) {
   var file = document.getElementById("file");
   if (file.value!=""){
     var fileName = file.files[0].path.toString();
-    fileName = fileName.replace(/(\\|\/)/g, ' ');
-    var fileN = fileName.split(' ').pop();  
-    //var fileName = String(file).split(/(\\|\/)/g).pop();
+    // fileName = fileName.replace(/(\\|\/)/g, ' ');
+    // var fileN = fileName.split(' ').pop();  
+    var fileName = String(file).split(/(\\|\/)/g).pop();
     console.log(fileName);
   }
   else{
@@ -158,7 +143,7 @@ newProject.addEventListener('click', function (event) {
   myfile=document.getElementById("file").value.toString(); //find which parameter the user selected
   
   var printErrors = ""
-  // checkPrintType(myfile,printType);
+  printErrors = checkPrintType(myfile,printType);
   if (printErrors!=""){
     errors+=printErrors;
     file.value="";
@@ -195,21 +180,29 @@ newProject.addEventListener('click', function (event) {
     }
 
     var fs = require('fs');
-    var dir = "/Users/tartarus/Desktop/Fall 2018/" + netID + "/"
+    var dir = "/Users/tartarus/Desktop/Spring_2019_Autosave/" + netID + "/"
     var pathstr = dir + fileName 
 
     if (!fs.existsSync(dir)){
-       fs.mkdirSync(dir);
+       try{
+        fs.mkdirSync(dir);
+        }
+        catch(e){
+          // alert('No such directory exists');
+        }
        console.log('made')
     }
+    
     try {  
-      fs.writeFileSync(pathstr, file_data, 'utf-8'); 
+      const cpFile = require('cp-file');
+      // var async = require("async");
+      cpFile(file.files[0].path.toString(), pathstr); //copy file src -> dest
     }
     catch(e) { 
       alertA = 'File Save Failed'; 
-      console.log(e)
-      console.log(data)
-    }  
+      // console.log(e)
+      // console.log(data)
+    }   
     
     var add = "INSERT INTO queue (proj_name, full_name, phone_num, netID , association, color, printer, infill, resolution, material, time_min, file, purpose, date, comments) VALUES ('"  
      + projName + "','" + fullName + "', '" + phone + "','" + netID + "','" + school + "','" + color + "','" + printer + "','" + infill + "','" + resolution + "','" + material+ "','" + time + "','" + fileName + "','" + purpose+"','"+fullDate+"','"+comments+"')";
@@ -239,8 +232,8 @@ newWindowBtn.addEventListener('click', function (event) {
    win.on('close', function () {
      win = null;
    })
-   win.scrollTo(0,900);
-   console.log('here');
+   // win.scrollTo(0,900);
+   // console.log('here');
    win.show()
  }
  else{
@@ -297,7 +290,7 @@ newWindowBtn.addEventListener('click', function (event) {
 const optionsWindowBtn = document.getElementById('options-window')
 optionsWindowBtn.addEventListener('click', function (event) {
 
-  let win = new BrowserWindow({ width: 400, height: 550})
+  let win = new BrowserWindow({ width: 500, height: 550})
   
 	win.loadURL('file://' + __dirname + '/options.html');
 	  win.on('close', function () { win = null })
@@ -330,7 +323,7 @@ function updateDisplay(options, optionList){
   }
 
 }
-var bgd = (localStorage.getItem("background")); //gets current list of options for the parameter selected
-console.log(bgd);
-document.getElementById('background').style.background = "url(file:///images/" + bgd + ")";
-document.getElementById('background').style.backgroundRepeat = false;
+// var bgd = (localStorage.getItem("background")); //gets current list of options for the parameter selected
+// console.log(bgd);
+// document.getElementById('background').style.background = "url(file:///images/" + bgd + ")";
+// document.getElementById('background').style.backgroundRepeat = false;
