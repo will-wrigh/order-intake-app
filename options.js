@@ -101,6 +101,14 @@ databaseWindowBtn.addEventListener('click', function (event) {
 	  win.show()
 });
 
+const changeStartID = document.getElementById('changeStartID')
+const startidval = document.getElementById('startID')
+startidval.value = JSON.parse(localStorage.getItem('start-id'));
+changeStartID.addEventListener('click', function (event) {
+	localStorage.setItem("start-id", JSON.stringify(startidval.value));
+	alert('Start ID for queue display updated')
+});
+
 }
 
 

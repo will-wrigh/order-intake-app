@@ -156,39 +156,43 @@ window.onload = function () {
         for(r of result){ //for each row in the table
             if (err) throw err;
             var field = r;
-            // console.log(field);
-            var name = field.full_name + " (" + field.netID + ")";
-            var material = field.material;
-            var cost = (material - (material%100))/100; //integer division to get cost
-            var costResin = (material - (material%50))/50; //integer division to get cost
-            var file = field.file;
-            var fileName = field.file;
-            if (field.file!=null){
-                if (fileName.substring(0, 15) ==  " Users tartarus") {
-                    fileName = field.file.split(' ').pop(); //get last part of file path as file name
+            var startID = JSON.parse(localStorage.getItem('start-id'))
+            if (field.id>=startID){ 
+            // if (field.id>342){ 
+                // console.log(field);
+                var name = field.full_name + " (" + field.netID + ")";
+                var material = field.material;
+                var cost = (material - (material%100))/100; //integer division to get cost
+                var costResin = (material - (material%50))/50; //integer division to get cost
+                var file = field.file;
+                var fileName = field.file;
+                if (field.file!=null){
+                    if (fileName.substring(0, 15) ==  " Users tartarus") {
+                        fileName = field.file.split(' ').pop(); //get last part of file path as file name
+                    }
+                    var fileType = fileName.split('.').pop(); //get part after period as file type    
                 }
-                var fileType = fileName.split('.').pop(); //get part after period as file type    
-            }
-            else {
-                var fileName = ""
-                var fileType = ""
-            }
+                else {
+                    var fileName = ""
+                    var fileType = ""
+                }
 
-            if (fileType=='form') {
-                material = material + " mL";
-                cost = (costResin+1)*4; //cost for resin 
-            }
-            else {
-                material = material + " g";
-                cost = (cost+1)*2; //cost for pla
-            }
+                if (fileType=='form') {
+                    material = material + " mL";
+                    cost = (costResin+1)*4; //cost for resin 
+                }
+                else {
+                    material = material + " g";
+                    cost = (cost+1)*2; //cost for pla
+                }
 
-            newDataArray.push([field.id,name,createNew(fileName,field.id),field.date,cost,material,field.completed,field.emailSent,field.imageTaken,field.paidFor,field.comments,field.printer]);
-            k+=1;
-        }
-        localStorage.setItem("data", JSON.stringify(hot.getData()));
-        hot.populateFromArray(0, 0, newDataArray);
-        hot.render();
+                newDataArray.push([field.id,name,createNew(fileName,field.id),field.date,cost,material,field.completed,field.emailSent,field.imageTaken,field.paidFor,field.comments,field.printer]);
+                k+=1;
+                }
+            }
+            localStorage.setItem("data", JSON.stringify(hot.getData()));
+            hot.populateFromArray(0, 0, newDataArray);
+            hot.render();
          //put data array in local storage
       });
     });
