@@ -1,7 +1,9 @@
 # Order Intake App
 
 ## Installation
-Requires Node.js (https://nodejs.org/en/)
+Requirements
+  Node.js version 6.4.1+ (https://nodejs.org/en/)
+  SQL Database
 
 ```sh
 # open a terminal or cmd window and download this app through github or by downloading the zip file
@@ -20,7 +22,7 @@ electron-packager .
 - navigate to ./order-intake-app-darwin-x64
 - open order-intake-app
 - fill out sql database host information
-- reload app
+- quit reload app
 - save app icon to shortcut for easy access
 
 ### Intake Form:
