@@ -2,8 +2,8 @@
 
 ## Installation
 Requirements
-  Node.js version 6.4.1+ (https://nodejs.org/en/)
-  SQL Database
+- Node.js version 6.4.1+ (https://nodejs.org/en/)
+- SQL Database
 
 ```sh
 # open a terminal or cmd window and download this app through github or by downloading the zip file
