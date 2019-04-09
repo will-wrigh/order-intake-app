@@ -20,7 +20,7 @@ window.onload = function () {
 
   var info = [ //shows up before sql data loads
         {
-            name:'MakeEmory'
+            name:'Error: see readme'
             // file: 'thing.stl',
             // date: '05/15/2009',2
             // completed: 'no',
