@@ -22,7 +22,7 @@ electron-packager .
 - navigate to ./order-intake-app-darwin-x64
 - open order-intake-app application
 - fill out sql database host information
-- quit and reload app
+- quit the program and reopen it
 - save app icon to shortcut for easy access
 
 ## Common Errors
