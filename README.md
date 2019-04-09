@@ -2,8 +2,8 @@
 
 ## Installation
 Requirements: 
-	Node.js version 6.4.1+ (https://nodejs.org/en/) 
-	SQL Database ([creating database](https://github.com/EmoryTechlab/order-intake-app#creating-database))
+- Node.js version 6.4.1+ (https://nodejs.org/en/) 
+- SQL Database
 
 ```sh
 # open a terminal or cmd window and download this app through github or by downloading the zip file
@@ -19,7 +19,7 @@ npm install electron-packager -g
 electron-packager .
 ```
 
-- navigate to ./order-intake-app-darwin-x64
+- navigate to ./order-intake-app-* (rest of folder should be titled with current operating system)
 - open order-intake-app application
 - fill out sql database host information
 - quit the program and reopen it
@@ -40,7 +40,12 @@ electron-packager .
 ```sh
 'electron-packager fails'
 ```
----> make sure to include the period after electorn-packager in order to use default package settings
+---> make sure to include the period after electron-packager in order to use default package settings
+
+```sh
+'Error: see readme' when opening queue
+```
+---> database was unable to load - try retyping the credentials or looking into your database host
 
 ### Intake Form:
 <img src="images/intake_app.png" width="100%">
