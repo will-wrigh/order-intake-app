@@ -128,7 +128,7 @@ window.onload = function () {
                var id = data[row][0]
                var col = changes[0][1]
                var newVal = changes[0][3]
-               var query = " UPDATE queue SET " + col + " = '" + newVal +"' WHERE id=" + id +";";
+               var query = " UPDATE queue SET " + col + " = " + con.escape(newVal) +" WHERE id=" + id +";";
                con.query(query, function (err, result) {
                    if(err) throw err;
                });

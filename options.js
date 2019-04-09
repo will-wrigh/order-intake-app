@@ -4,20 +4,22 @@ const addButton = document.getElementById('addOption');
 const delButton = document.getElementById('deleteOption');
 const paramSel = document.getElementById('parameter');
 
-// var colorArray = ["Purple","Blue"];
-// var printerArray = ["Taz","Monoprice","Form"];
-// var infillArray = ["5%","10%"];
-// var purposeArray = ["Personal","Academic"];
-// var resolutionArray = ["0.10"];
-// var schoolArray = ["Emory College", "School of Medicine", "Other"]
+var colorArray = ["White","Black"];
+var printerArray = ["Taz","Form"];
+var infillArray = ["5%","10%"];
+var purposeArray = ["Personal","Academic"];
+var resolutionArray = ["0.10", "0.20"];
+var schoolArray = ["Emory College", "School of Medicine", "Other"]
 
-// var Color = localStorage.setItem("Color", JSON.stringify(colorArray));
-// var Printer = localStorage.setItem("Printer", JSON.stringify(printerArray));
-// var Infill = localStorage.setItem("Infill", JSON.stringify(infillArray));
-// var Purpose = localStorage.setItem("Purpose", JSON.stringify(purposeArray));
-// var Resolution = localStorage.setItem("Resolution", JSON.stringify(resolutionArray));
-// var School = localStorage.setItem("School", JSON.stringify(schoolArray));
-
+if (localStorage.getItem("is_first_open")==null){
+	console.log('here')
+	var Color = localStorage.setItem("Color", JSON.stringify(colorArray));
+	var Printer = localStorage.setItem("Printer", JSON.stringify(printerArray));
+	var Infill = localStorage.setItem("Infill", JSON.stringify(infillArray));
+	var Purpose = localStorage.setItem("Purpose", JSON.stringify(purposeArray));
+	var Resolution = localStorage.setItem("Resolution", JSON.stringify(resolutionArray));
+	var School = localStorage.setItem("School", JSON.stringify(schoolArray));
+}
 
 paramSel.addEventListener('change',function(event){
 	var param = document.getElementById("parameter").value.toString(); //find which parameter the user selected - color, printer, etc.

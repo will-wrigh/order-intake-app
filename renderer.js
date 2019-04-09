@@ -8,12 +8,26 @@ var mysql = require('mysql')
 const fs = require('fs')
 const dialog = require('electron').remote.dialog
 const {getCurrentWindow, globalShortcut} = require('electron').remote;
-  //remote = require('remote'),
-  //dialog = remote.require('dialog');
-// var newCreds = ["mysql.ecdsdev.org","hortontestuser","f%jUY78NH$#mK87F","hortontestdb"];
-// var x = localStorage.setItem("sqlCreds", JSON.stringify(newCreds)); //puts new array in storage
 
-var currSqlCreds = JSON.parse(localStorage.getItem("sqlCreds")); //gets current list of options for the parameter selected
+// remote = require('remote'),
+// dialog = remote.require('dialog');
+// var newCreds = ["mysql.ecdsdev.org","hortontestuser","f%jUY78NH$#mK87F","hortontestdb"];
+// var x = localStorage.setItem("sqlCreds", JSON.stringify(newCreds)); 
+// puts new array in storage
+
+// installation
+
+if (localStorage.getItem("is_first_open")==null){
+  alert("Please fill out default settings - including SQL DB settings - before using the app. Reload the app when done.")
+  let win = new BrowserWindow({ width: 500, height: 550})
+  
+  win.loadURL('file://' + __dirname + '/options.html');
+  win.on('close', function () { win = null });
+  win.show();
+  if (localStorage.getItem("sqlCreds") !=null) localStorage.setItem("is_first_open", "false");
+}
+
+var currSqlCreds = JSON.parse(localStorage.getItem("sqlCreds")); // gets current list of options for the parameter selected
 
 var con = mysql.createConnection({
   host: currSqlCreds[0],
