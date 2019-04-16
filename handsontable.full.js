@@ -39104,6 +39104,9 @@ exports.__esModule = true;
 var _element = __webpack_require__(0);
 
 function cellDecorator(instance, TD, row, col, prop, value, cellProperties) {
+  var col_start = 7;
+  var col_end = 10;
+
   var classesToAdd = [];
   var classesToRemove = [];
 
@@ -39125,19 +39128,19 @@ function cellDecorator(instance, TD, row, col, prop, value, cellProperties) {
     classesToRemove.push(cellProperties.invalidCellClassName);
   }
 
-      if ((col>=6 && col <=9) && (value=='yes' || value == 'n/a') && cellProperties.greenClass) {
+      if ((col>=col_start && col <=col_end) && (value=='yes' || value == 'n/a' || value == 'cancelled' || value == 'cancel') && cellProperties.greenClass) {
       (0, _element.addClass)(TD, cellProperties.greenClass);
     } else {
       (0, _element.removeClass)(TD, cellProperties.greenClass);
     }
 
-    if ((col>=6 && col <=9) && value=='no' && cellProperties.redClass) {
+    if ((col>=col_start && col <=col_end) && value=='no' && cellProperties.redClass) {
       (0, _element.addClass)(TD, cellProperties.redClass);
     } else {
       (0, _element.removeClass)(TD, cellProperties.redClass);
     }
 
-    if(col==6 && value!='yes' && value !='no' && value!=null && cellProperties.orangeClass){
+    if(col==col_start && value!='yes' && value !='no' && value != 'cancelled' && value!=null && cellProperties.orangeClass){
           (0, _element.addClass)(TD, cellProperties.orangeClass);
     } else {
       (0, _element.removeClass)(TD, cellProperties.orangeClass);

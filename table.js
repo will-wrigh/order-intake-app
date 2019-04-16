@@ -37,7 +37,7 @@ window.onload = function () {
     //     exportPlugin.downloadFile('csv', {filename: 'Queue.csv'});
     // });
 
-    var colHeaders = ['ID','Name','File Name','Date','Cost','Material','Completed','Email Sent','Image Taken','Paid For','Comments','Printer']
+    var colHeaders = ['ID','Name','File Name','Date','Cost','Material','Time','Completed','Email Sent','Image Taken','Paid For','Comments','Printer']
 
     var hotElement = document.querySelector('#hot');
     var first = 1;
@@ -83,6 +83,11 @@ window.onload = function () {
             },
             {
                 data: 'material',
+                type: 'numeric',
+                editor: false
+            },
+            {
+                data: 'time',
                 type: 'numeric',
                 editor: false
             },
@@ -137,6 +142,7 @@ window.onload = function () {
         },
         allowInsertRow: true,
         comments: true,
+        search: true,
         hiddenColumns:{columns:[11]}
         
     };
@@ -146,7 +152,7 @@ window.onload = function () {
             ];
     var i = 0;
     var k = 0;
-    var sel = "SELECT id,netID,full_name,file,time_hr,material,completed,paidFor,emailSent,imageTaken,date,material,comments,printer FROM queue";
+    var sel = "SELECT id,netID,full_name,file,time_hr,time_min,material,completed,paidFor,emailSent,imageTaken,date,material,comments,printer FROM queue";
     
     con.connect(function(err) { //connect to database
       if (err) throw err;
@@ -186,7 +192,11 @@ window.onload = function () {
                     cost = (cost+1)*2; //cost for pla
                 }
 
-                newDataArray.push([field.id,name,createNew(fileName,field.id),field.date,cost,material,field.completed,field.emailSent,field.imageTaken,field.paidFor,field.comments,field.printer]);
+                var timeH = Math.floor(field.time_min/60);
+                var timeM = Math.round(60*((field.time_min/60)%1))
+                var timeT = timeH + "hr " + timeM + " min"
+
+                newDataArray.push([field.id,name,createNew(fileName,field.id),field.date,cost,material,timeT,field.completed,field.emailSent,field.imageTaken,field.paidFor,field.comments,field.printer]);
                 k+=1;
                 }
             }
@@ -227,6 +237,15 @@ window.onload = function () {
     //     }
     //     alert('Saving...please wait 5s before closing!')
     // });
+    var searchField = document.getElementById('searchField')
+
+    Handsontable.dom.addEvent(searchField, 'keyup', function (event) {
+      var search = hot.getPlugin('search');
+      var queryResult = search.query(this.value);
+
+      console.log(queryResult);
+      hot.render();
+    });
 
     const delBtn = document.getElementById('delBtn');
     delBtn.addEventListener('click', function() { //saves the data in 'updates' cols by updating each row in database
@@ -238,13 +257,13 @@ window.onload = function () {
         alert('Removed print from queue. Refresh the queue to reflect the changes.')
     });
 
-    const statsWindowBtn = document.getElementById('stats-window')
-    statsWindowBtn.addEventListener('click', function (event) {
-        let win = new BrowserWindow({ width: 700, height: 500})
-        win.loadURL('file://' + __dirname + '/statistics.html');
-        win.on('close', function () { win = null })
-        win.show()
-    });
+    // const statsWindowBtn = document.getElementById('stats-window')
+    // statsWindowBtn.addEventListener('click', function (event) {
+    //     let win = new BrowserWindow({ width: 700, height: 500})
+    //     win.loadURL('file://' + __dirname + '/statistics.html');
+    //     win.on('close', function () { win = null })
+    //     win.show()
+    // });
 
     function resetRows(count){
         hot.addHook('modifyRow', function(row) {

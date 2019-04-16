@@ -30,20 +30,25 @@
     <div id="content">
     <div style="float: left">
 <!-- <<<<<<< HEAD -->
-      <button id="exportFileButton" type="button" class="btn btn-primary">Export Table</button>
+      <!-- <button id="exportFileButton" type="button" class="btn btn-primary">Export Table</button> -->
       <!-- <button id="saveBtn" type="button" class="btn btn-primary">Save Table</button> -->
 <!-- ======= -->
       <!-- <button id="exportBtn" type="button" class="btn btn-primary">Export Table</button> -->
 <!--       <button id="saveBtn" type="button" class="btn btn-primary">Save Table</button>
  -->
-      <button id="stats-window" type="button" class="btn btn-primary">Statistics</button>
+      
+      <input style="display:inline;padding-bottom:3px;" id="searchField" type="text" class="form-control" placeholder="Search" aria-label="projName" aria-describedby="basic-addon1">
+      <!-- <button id="stats-window" type="button" class="btn btn-primary">Statistics</button> -->
+      <!-- <input id="searchField" type="text" class="form-control" placeholder="Search" aria-label="projName" aria-describedby="basic-addon1"> -->
      <!--  <button id="refresh" type="button" class="btn btn-primary">Refresh</button> -->
 
 <!--       <button id="printerType" type="button" class="btn btn-primary">Printer</button>
+
  --></div>
 
     <div style="margin: 0 auto; width: 200px;">
-      <h2>Print Queue</h2>
+      
+      <h2 style="display: inline">Print Queue</h2>
     </div>
 
     <div id="hot"></div>  
@@ -83,6 +88,7 @@
       <div class='col-3'><input id="delRowNum" type="text" class="form-control" placeholder="Project ID" aria-label="projName" aria-describedby="basic-addon1"></div>
       <div class='col-2'><button id="delBtn" type="button" class="btn btn-primary">Remove Print</button></div>
     </div>
+        
 </body>
 
 </html>

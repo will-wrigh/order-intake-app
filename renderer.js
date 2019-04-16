@@ -101,6 +101,7 @@ newProject.addEventListener('click', function (event) {
   var phoneV = document.getElementById("phoneNum").value;
   var timeH = document.getElementById("timeH").value;
   var timeM = document.getElementById("timeM").value;
+  var n_copies = document.getElementById("n_copies").value;
   var phone = document.getElementById("phoneNum").value.toString();
   // var timeH = document.getElementById("timeH").value.toString();
   // var timeM = document.getElementById("timeM").value.toString();
@@ -218,14 +219,17 @@ newProject.addEventListener('click', function (event) {
       // console.log(data)
     }   
     
-    var add = "INSERT INTO queue (proj_name, full_name, phone_num, netID , association, color, printer, infill, resolution, material, time_min, file, purpose, date, comments) VALUES ('"  
-     + projName + "','" + fullName + "', '" + phone + "','" + netID + "','" + school + "','" + color + "','" + printer + "','" + infill + "','" + resolution + "','" + material+ "','" + time + "','" + fileName + "','" + purpose+"','"+fullDate+"','"+comments+"')";
-    //con.connect(function(err) {
-      //if (err) throw err;
-      //console.log("Connected!");
-      con.query(add, function (err, result) { 
-        if (err) throw err;
-      });
+    for (i = 1; i <= n_copies; i++) { 
+
+      var add = "INSERT INTO queue (proj_name, full_name, phone_num, netID , association, color, printer, infill, resolution, material, time_min, file, purpose, date, comments) VALUES ('"  
+       + projName + "','" + fullName + "', '" + phone + "','" + netID + "','" + school + "','" + color + "','" + printer + "','" + infill + "','" + resolution + "','" + material+ "','" + time + "','" + fileName + "','" + purpose+"','"+fullDate+"','"+comments+"')";
+      //con.connect(function(err) {
+        //if (err) throw err;
+        //console.log("Connected!");
+        con.query(add, function (err, result) { 
+          if (err) throw err;
+        });
+      }
       //con.end();
     //});
     alert(alertA);
@@ -310,6 +314,14 @@ optionsWindowBtn.addEventListener('click', function (event) {
 	  win.on('close', function () { win = null })
 	  win.show()
 	});
+
+const statsWindowBtn = document.getElementById('stats-window')
+    statsWindowBtn.addEventListener('click', function (event) {
+        let win = new BrowserWindow({ width: 700, height: 500})
+        win.loadURL('file://' + __dirname + '/statistics.html');
+        win.on('close', function () { win = null })
+        win.show()
+    });
 
 //var selectOptions = ["Color", "Printer", "Infill", "Purpose", "Resolution"];
 var selectOptions = ["Color", "Printer", "Infill", "Purpose", "Resolution", "School"];
