@@ -14,64 +14,21 @@
 
     <div id="content">
 
-    <h3>Intake Form Options</h3><br>
+    <h3>Intake Form Settings</h3><br>
 
-      <div class="col">
-            <div class="row">
-              <div class="col">
-                <p>Parameter</p>
-              </div>
-              <div class="col-8">       
-                <select class="form-control" id="parameter">
-                  <option>Color</option>
-                  <option>Printer</option>
-                  <option>Infill</option>
-                  <option>Resolution</option>
-                  <option>Purpose</option>
-                  <option>School</option>
-                </select>
-              </div>
-            </div>
-        </div>
-
-        <br>
-
-      <div class="col">
-            <div class="row">
-              <div class="col">
-                <p>Option</p>
-              </div>
-              <div class="col-8">       
-                  <input id="newOption" type="text" class="form-control" placeholder="" aria-label="PrintFile" aria-describedby="basic-addon1"><br>
-              </div>
-            </div>
-        </div>
-
-    <div class="row">
-      <div class="col">
-        <button id="addOption" type="button" class="btn btn-primary btn-block">Add</button></div>
-      <div class="col">
-        <button id="deleteOption" type="button" class="btn btn-primary btn-block">Delete</button></div>
-    </div>
-
-    <div id="example"></div>
-    <p id="demo"></p>
-
-    <div class="col">
-
-        <div class="row">
           <div class="col">
-          <p id="param">Color</p>
+            <div class="row">
+              <div class="col">
+                <button id="parameter-window" type="button" class="btn btn-info btn-block">Dropdown Parameter Options</button>
+              </div>
+              <div class="col">
+                <button id="database-window" type="button" class="btn btn-info btn-block">Database Credentials Options</button>
+              </div>
+              <div class="col">
+                <button id="email-window" type="button" class="btn btn-info btn-block">Email Options</button>
+              </div>
+            </div>
           </div>
-          <div class="col-8">
-            <select class="form-control" id="selectOptions">
-          </select>
-          </div>
-        </div>
-
-      </div>
-          </br><button id="database-window" type="button" class="btn btn-primary btn-block">Database Credentials Options</button>
-          </br><button id="email-window" type="button" class="btn btn-primary btn-block">Email Options</button>
 
       <!-- </br><div class="row">
           <div class="col">
@@ -95,6 +52,20 @@
               </div>
               <div class="col">       
                   <button id="changeStartID" type="button" class="btn btn-primary btn-block">Update</button>
+              </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="row">
+              <div class="col-3">
+                <p>File Autosave Location</p>
+              </div>
+              <div class="col-7">       
+                  <input id="storeDir" type="text" class="form-control" placeholder="" aria-label="PrintFile" aria-describedby="basic-addon1"><br>
+              </div>
+              <div class="col-2">       
+                  <button id="changeStoreDir" type="button" class="btn btn-primary btn-block">Update</button>
               </div>
             </div>
         </div>

@@ -50,20 +50,118 @@ window.onload = function () {
       });
     }
 
-    var startDateField = document.getElementById('start-date')
-    var startDate = document.getElementById('start-date').value.toString();
-    var endDate = document.getElementById('end-date').value.toString();
-    console.log(startDate)
-    console.log(endDate)
-    startDateField.addEventListener('change',function(event){
+    // var startDateField = document.getElementById('start-date')
+    var updateBtn = document.getElementById('update-btn')
 
-      var query = "SELECT date, AVG(material), SUM(material), MAX(material), MIN(material), AVG(time_min), SUM(time_min), MAX(time_min), MIN(time_min) FROM queue WHERE date >='" + startDate + "' AND date <='" + endDate + "';"
+    var startDate = document.getElementById('start-date').value.toString();
+    // var endDate = document.getElementById('end-date').value.toString();
+    // console.log(startDate)
+    // console.log(endDate)
+
+    var query = "SELECT date, COUNT(*), AVG(material), SUM(material), MAX(material), MIN(material), AVG(time_min), SUM(time_min), MAX(time_min), MIN(time_min) FROM queue WHERE date >='" + startDate +"';"
+
+    con.query(query, function (err, result) {
+      console.log(query)
+      if(err) throw err;
+      var field = JSON.parse(JSON.stringify(result))[0]
+      // document.getElementById('nPrints').innerHTML = field["COUNT(*)"];
+      document.getElementById('sumMaterial').innerHTML = field["SUM(material)"];
+      document.getElementById('avgMaterial').innerHTML = field["AVG(material)"];
+    });
+
+    // var query = "SELECT COUNT(id),printer FROM queue GROUP BY printer"
+    // var query = 
+    // var query = "SELECT COUNT(id),material FROM queue GROUP BY material"
+    //just gotta iterate thorugh these results and print out full result on sheet
+
+    queries = ["SELECT COUNT(id),association FROM queue GROUP BY association","SELECT COUNT(id),printer FROM queue GROUP BY printer"]
+    for (var i = 0; i < queries.length; i++){
+      con.query(queries[i], function (err, result) {
+        if(err) throw err;
+        var field = JSON.parse(JSON.stringify(result))[0];
+        // document.getElementById('nForm').innerHTML = field["COUNT(*)"];
+
+        printersArray = createArray(result);
+        createTable(printersArray);
+      });
+    }
+
+    updateBtn.addEventListener('click',function(event){
+      var startDate = document.getElementById('start-date').value.toString();
+      // var endDate = document.getElementById('end-date').value.toString();
+      console.log(startDate)
+      // console.log(endDate)
+      // var query = "SELECT date, AVG(material), SUM(material), MAX(material), MIN(material), AVG(time_min), SUM(time_min), MAX(time_min), MIN(time_min) FROM queue WHERE date >='" + startDate + "' AND date <='" + endDate + "';"
+      var query = "SELECT date, COUNT(*), AVG(material), SUM(material), MAX(material), MIN(material), AVG(time_min), SUM(time_min), MAX(time_min), MIN(time_min) FROM queue WHERE date >='" + startDate +"';"
+
       con.query(query, function (err, result) {
+        console.log(query)
         if(err) throw err;
         var field = JSON.parse(JSON.stringify(result))[0]
+        // document.getElementById('nPrints').innerHTML = field["COUNT(*)"];
         document.getElementById('sumMaterial').innerHTML = field["SUM(material)"];
         document.getElementById('avgMaterial').innerHTML = field["AVG(material)"];
       });
+
+      // var query = "SELECT COUNT(id),printer FROM queue GROUP BY printer"
+      // var query = 
+      // var query = "SELECT COUNT(id),material FROM queue GROUP BY material"
+      //just gotta iterate thorugh these results and print out full result on sheet
+
+      queries = ["SELECT COUNT(id),association FROM queue GROUP BY association","SELECT COUNT(id),printer FROM queue GROUP BY printer"]
+      for (var i = 0; i < queries.length; i++){
+        con.query(queries[i], function (err, result) {
+          if(err) throw err;
+          var field = JSON.parse(JSON.stringify(result))[0];
+          // document.getElementById('nForm').innerHTML = field["COUNT(*)"];
+
+          printersArray = createArray(result);
+          createTable(printersArray);
+        });
+      }
+        
     });
+
+  function createTable(tableData) {
+    var table = document.createElement('table');
+    table.className += " table";
+    table.setAttribute("id", "content");
+    table.setAttribute("style", "width: 50%;");
+    var tableBody = document.createElement('tbody');
+
+    tableData.forEach(function(rowData) {
+      var row = document.createElement('tr');
+
+      rowData.forEach(function(cellData) {
+        var cell = document.createElement('td');
+        cell.appendChild(document.createTextNode(cellData));
+        row.appendChild(cell);
+      });
+
+      tableBody.appendChild(row);
+    });
+
+    table.appendChild(tableBody);
+    document.body.appendChild(table);
+    var br = document.createElement('br');
+    document.body.appendChild(br);
+  }
+
+  function createArray(result){
+    type = Object.keys(result[0])[1]
+
+    printersArray = []
+    printersArray.push([type, "count"])
+    count = 1;
+    for (var i = 0; i < result.length; i++) {
+      if ((result[i]["COUNT(id)"]) > 1){
+        printersArray.push([])
+        printersArray[count].push(result[i][type])
+        printersArray[count].push(result[i]["COUNT(id)"])
+        count = count + 1
+      }
+    }
+    return printersArray;
+  }
 
 }

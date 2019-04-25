@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Options</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="assets/main.css" />
+    <script src='parameter_options.js'></script>
+  </head>
+  <body>
+
+    <div id="content">
+      <h3>Update Dropdown Parameters</h3><br>
+
+                <div class="col">
+            <div class="row">
+              <div class="col">
+                <p>Parameter</p>
+              </div>
+              <div class="col-8">       
+                <select class="form-control" id="parameter">
+                  <option>Color</option>
+                  <option>Printer</option>
+                  <option>Infill</option>
+                  <option>Resolution</option>
+                  <option>Purpose</option>
+                  <option>School</option>
+                </select>
+              </div>
+            </div>
+        </div>
+
+        <br>
+
+      <div class="col">
+            <div class="row">
+              <div class="col">
+                <p>Option</p>
+              </div>
+              <div class="col-8">       
+                  <input id="newOption" type="text" class="form-control" placeholder="" aria-label="PrintFile" aria-describedby="basic-addon1"><br>
+              </div>
+            </div>
+        </div>
+
+    <div class="row">
+      <div class="col">
+        <button id="addOption" type="button" class="btn btn-primary btn-block">Add</button></div>
+      <div class="col">
+        <button id="deleteOption" type="button" class="btn btn-primary btn-block">Delete</button></div>
+    </div>
+
+    <div id="example"></div>
+    <p id="demo"></p>
+
+    <div class="col">
+
+        <div class="row">
+          <div class="col">
+          <p id="param">Color</p>
+          </div>
+          <div class="col-8">
+            <select class="form-control" id="selectOptions">
+          </select>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  </body>
+</html>

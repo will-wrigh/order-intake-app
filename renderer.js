@@ -195,7 +195,9 @@ newProject.addEventListener('click', function (event) {
     }
 
     var fs = require('fs');
-    var dir = "/Users/tartarus/Desktop/Spring_2019_Autosave/" + netID + "/"
+    var dirTop = JSON.parse(localStorage.getItem('store-dir'));
+    // var dir = "/Users/tartarus/Desktop/Spring_2019_Autosave/" + netID + "/"
+    var dir = dirTop + netID + "/"
     var pathstr = dir + fileName 
 
     if (!fs.existsSync(dir)){
@@ -308,7 +310,7 @@ newWindowBtn.addEventListener('click', function (event) {
 const optionsWindowBtn = document.getElementById('options-window')
 optionsWindowBtn.addEventListener('click', function (event) {
 
-  let win = new BrowserWindow({ width: 500, height: 550})
+  let win = new BrowserWindow({ width: 900, height: 450})
   
 	win.loadURL('file://' + __dirname + '/options.html');
 	  win.on('close', function () { win = null })
